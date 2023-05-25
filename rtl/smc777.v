@@ -78,6 +78,27 @@ always @(posedge clk) begin
 	if (hc == 590) HSync <= 0;
 end
 
+tv80n tv80n()
+(
+  .reset_n(reset),	// I
+  .clk(clk),		// I
+  .wait_n(1'b1),	// I
+  .int_n(1'b1),		// I
+  .nmi_n(1'b1),		// I
+  .busrq_n(1'b1),	// I
+  .di(8'bzzzzzzzz),	// [7:0] I
+  .m1_n(1'b1),		// O
+  .mreq_n(1'b1),	// O
+  .iorq_n(1'b1),	// O
+  .rd_n(1'b1),		// O
+  .wr_n(1'b1),		// O
+  .rfsh_n(1'b1),	// O
+  .halt_n(1'b1),	// O
+  .busak_n(1'b1),	// O
+  .A(16'bzzzzzzzzzzzzzzzz),	// [15:0] O
+  .dout(8'bzzzzzzzz)	// [7:0] O
+);
+
 /*
 reg  [7:0] cos_out;
 wire [5:0] cos_g = cos_out[7:3]+6'd32;
