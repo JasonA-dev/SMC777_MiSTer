@@ -184,111 +184,98 @@ always @* begin
         adj_scanline = r05_v_total_adj;
 end
 
-    -- Counter hits (only ones that are used in many places)
-    r00_h_total_hit <= '1' when h_counter = r00_h_total  else '0';
-
-    -- Indcates a new frame will start on the next clock tick.
-    new_frame <= '1' when r00_h_total_hit = '1' and eof_latched = '1' and (r08_interlace(0) = '0' or field_counter(0) = '0' or extra_scanline = '1' or VGA = '1') else '0';
-
+    // Counter hits (only ones that are used in many places)
+always @* begin
+    if (h_counter == r00_h_total)
+        r00_h_total_hit = 1'b1;
+    else
+        r00_h_total_hit = 1'b0;
+end
+    // Indcates a new frame will start on the next clock tick.
+always @* begin
+    if (r00_h_total_hit && eof_latched && (r08_interlace[0] == 1'b0 || field_counter[0] == 1'b0 || extra_scanline || VGA))
+        new_frame = 1'b1;
+    else
+        new_frame = 1'b0;
+end
     // ===========================================================================
     
     // Registers
     
     // ===========================================================================
 
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-           -- Reset registers to defaults
-            addr_reg <= (others => '0');
-            r00_h_total <= (others => '0');
-            r01_h_displayed <= (others => '0');
-            r02_h_sync_pos <= (others => '0');
-            r03_v_sync_width <= (others => '0');
-            r03_h_sync_width <= (others => '0');
-            r04_v_total <= (others => '0');
-            r05_v_total_adj <= (others => '0');
-            r06_v_displayed <= (others => '0');
-            r07_v_sync_pos <= (others => '0');
-            r08_interlace <= (others => '0');
-            r09_max_scanline_addr <= (others => '0');
-            r10_cursor_mode <= (others => '0');
-            r10_cursor_start <= (others => '0');
-            r11_cursor_end <= (others => '0');
-            r12_start_addr_h <= (others => '0');
-            r13_start_addr_l <= (others => '0');
-            r14_cursor_h <= (others => '0');
-            r15_cursor_l <= (others => '0');
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        // Reset registers to defaults
+        addr_reg <= 5'b0;
+        r00_h_total <= 8'b0;
+        r01_h_displayed <= 8'b0;
+        r02_h_sync_pos <= 8'b0;
+        r03_v_sync_width <= 4'b0;
+        r03_h_sync_width <= 4'b0;
+        r04_v_total <= 7'b0;
+        r05_v_total_adj <= 5'b0;
+        r06_v_displayed <= 7'b0;
+        r07_v_sync_pos <= 7'b0;
+        r08_interlace <= 8'b0;
+        r09_max_scanline_addr <= 5'b0;
+        r10_cursor_mode <= 2'b0;
+        r10_cursor_start <= 5'b0;
+        r11_cursor_end <= 5'b0;
+        r12_start_addr_h <= 6'b0;
+        r13_start_addr_l <= 8'b0;
+        r14_cursor_h <= 6'b0;
+        r15_cursor_l <= 8'b0;
 
-            DO <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if ENABLE = '1' then
-                if R_nW = '1' then
-                    -- Read
-                    case addr_reg is
-                    when "01100" =>
-                        DO <= "00" & std_logic_vector(r12_start_addr_h);
-                    when "01101" =>
-                        DO <= std_logic_vector(r13_start_addr_l);
-                    when "01110" =>
-                        DO <= "00" & std_logic_vector(r14_cursor_h);
-                    when "01111" =>
-                        DO <= std_logic_vector(r15_cursor_l);
-                    when "10000" =>
-                        DO <= "00" & std_logic_vector(r16_light_pen_h);
-                    when "10001" =>
-                        DO <= std_logic_vector(r17_light_pen_l);
-                    when others =>
-                        DO <= (others => '0');
-                    end case;
-                elsif CLKEN_CPU = '1' then
-                    -- Write
-                    if RS = '0' then
-                        addr_reg <= DI(4 downto 0);
-                    else
-                        case addr_reg is
-                        when "00000" =>
-                            r00_h_total <= unsigned(DI);
-                        when "00001" =>
-                            r01_h_displayed <= unsigned(DI);
-                        when "00010" =>
-                            r02_h_sync_pos <= unsigned(DI);
-                        when "00011" =>
-                            r03_v_sync_width <= unsigned(DI(7 downto 4));
-                            r03_h_sync_width <= unsigned(DI(3 downto 0));
-                        when "00100" =>
-                            r04_v_total <= unsigned(DI(6 downto 0));
-                        when "00101" =>
-                            r05_v_total_adj <= unsigned(DI(4 downto 0));
-                        when "00110" =>
-                            r06_v_displayed <= unsigned(DI(6 downto 0));
-                        when "00111" =>
-                            r07_v_sync_pos <= unsigned(DI(6 downto 0));
-                        when "01000" =>
-                            r08_interlace <= DI(7 downto 0);
-                        when "01001" =>
-                            r09_max_scanline_addr <= unsigned(DI(4 downto 0));
-                        when "01010" =>
-                            r10_cursor_mode <= DI(6 downto 5);
-                            r10_cursor_start <= unsigned(DI(4 downto 0));
-                        when "01011" =>
-                            r11_cursor_end <= unsigned(DI(4 downto 0));
-                        when "01100" =>
-                            r12_start_addr_h <= unsigned(DI(5 downto 0));
-                        when "01101" =>
-                            r13_start_addr_l <= unsigned(DI(7 downto 0));
-                        when "01110" =>
-                            r14_cursor_h <= unsigned(DI(5 downto 0));
-                        when "01111" =>
-                            r15_cursor_l <= unsigned(DI(7 downto 0));
-                        when others =>
-                            null;
-                        end case;
-                    end if;
-                end if;
-            end if;
-        end if;
-    end process;
+        DO <= 8'b0;
+    end
+    else begin
+    if (ENABLE) begin
+        if (R_nW) begin
+            // Read operation
+            case (addr_reg)
+                5'b01100: DO <= {2'b00, r12_start_addr_h};
+                5'b01101: DO <= r13_start_addr_l;
+                5'b01110: DO <= {2'b00, r14_cursor_h};
+                5'b01111: DO <= r15_cursor_l;
+                5'b10000: DO <= {2'b00, r16_light_pen_h};
+                5'b10001: DO <= r17_light_pen_l;
+                default: DO <= 8'b0;
+            endcase
+        end
+        else if (CLKEN_CPU) begin
+            // Write operation
+                if (RS == 1'b0)
+                    addr_reg <= DI[4:0];
+                else begin
+                    case (addr_reg)
+                        5'b00000: r00_h_total <= DI;
+                        5'b00001: r01_h_displayed <= DI;
+                        5'b00010: r02_h_sync_pos <= DI;
+                        5'b00011: begin
+                            r03_v_sync_width <= DI[7:4];
+                            r03_h_sync_width <= DI[3:0];
+                        end
+                        5'b00100: r04_v_total <= DI[6:0];
+                        5'b00101: r05_v_total_adj <= DI[4:0];
+                        5'b00110: r06_v_displayed <= DI[6:0];
+                        5'b00111: r07_v_sync_pos <= DI[6:0];
+                        5'b01000: r08_interlace <= DI[7:0];
+                        5'b01001: r09_max_scanline_addr <= DI[4:0];
+                        5'b01010: begin
+                            r10_cursor_mode <= DI[6:5];
+                            r10_cursor_start <= DI[4:0];
+                        end
+                        5'b01011: r11_cursor_end <= DI[4:0];
+                        5'b01100: r12_start_addr_h <= DI[5:0];
+                        5'b01101: r13_start_addr_l <= DI[7:0];
+                        5'b01110: r14_cursor_h <= DI[5:0];
+                        5'b01111: r15_cursor_l <= DI[7:0];
+                    endcase
+                end
+        end
+    end
+    end
 
     // ===========================================================================
     
@@ -296,89 +283,85 @@ end
     
     // ===========================================================================
 
-    -- Horizontal Counter
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            h_counter <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                if r00_h_total_hit = '1' then
-                    h_counter <= (others => '0');
-                else
-                    h_counter <= h_counter + 1;
-                end if;
-            end if;
-        end if;
-    end process;
+    // Horizontal Counter
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        h_counter <= 8'b0;
+    end else if (posedge CLOCK) begin
+        if (CLKEN) begin
+            if (r00_h_total_hit) begin
+                h_counter <= 8'b0;
+            end else begin
+                h_counter <= h_counter + 1;
+            end
+        end
+    end
+end
 
-    -- Horizontal Sync Counter
-    --
-    -- Note: r03_h_sync_width should have the following effect:
-    --       0 => no hsync
-    --       1 => hsync lasting 1 character
-    --       2 => vsync lasting 2 characters
-    --       ...
-    --       15 => hsync lasting 15 characters
-    --
-    -- Changing R2 during HSYNC does not retrigger HSYNC
-    -- Changing R3 during HSYNC does extend (or overflow) HSYNC
-    -- multiple HSYNCs can happen on a line, but there will be a gap between them
-    -- R3=0 => no HSYNC
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            h_sync_counter <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                if hs = '0' then
-                    h_sync_counter <= x"0";
-                else
-                    h_sync_counter <= h_sync_counter + 1;
-                end if;
-            end if;
-        end if;
-    end process;
+    // Horizontal Sync Counter
+    
+    // Note: r03_h_sync_width should have the following effect:
+    //       0 => no hsync
+    //       1 => hsync lasting 1 character
+    //       2 => vsync lasting 2 characters
+    //       ...
+    //       15 => hsync lasting 15 characters
+    
+    // Changing R2 during HSYNC does not retrigger HSYNC
+    // Changing R3 during HSYNC does extend (or overflow) HSYNC
+    // multiple HSYNCs can happen on a line, but there will be a gap between them
+    // R3=0 => no HSYNC
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        h_counter <= 8'b0;
+    end else if (posedge CLOCK) begin
+        if (CLKEN) begin
+            if (r00_h_total_hit) begin
+                h_counter <= 8'b0;
+            end else begin
+                h_counter <= h_counter + 1;
+            end
+        end
+    end
+end
 
-    -- Horizontal Sync
-    --
-    -- hs is modelled like a R/S flip-flop that reacts almost immediately
-    -- to h_counter (one fast tick later)
-    --
-    -- Important: No clock enable is used here
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            hs <= '0';
-        elsif rising_edge(CLOCK) then
-            if h_sync_counter = r03_h_sync_width then
-                hs <= '0';
-            elsif h_counter = r02_h_sync_pos then
-                hs <= '1';
-            end if;
-        end if;
-    end process;
+    // Horizontal Sync
+    
+    // hs is modelled like a R/S flip-flop that reacts almost immediately
+    // to h_counter (one fast tick later)
+    
+    // Important: No clock enable is used here
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        hs <= 1'b0;
+    end else if (posedge CLOCK) begin
+        if (h_sync_counter == r03_h_sync_width) begin
+            hs <= 1'b0;
+        end else if (h_counter == r02_h_sync_pos) begin
+            hs <= 1'b1;
+        end
+    end
+end
 
-    HSYNC <= hs; -- External HSYNC driven directly from internal signal
+    assign HSYNC = hs; -- External HSYNC driven directly from internal signal
 
-    -- Horizontal Display Enable
-    --
-    -- h_display is modelled like a R/S flip-flop that reacts almost immediately
-    -- to h_counter (one fast tick later)
-    --
-    -- Important: No clock enable is used here
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            h_display <= '0';
-        elsif rising_edge(CLOCK) then
-            if h_counter = r01_h_displayed or h_counter = r00_h_total then
-                h_display <= '0';
-            elsif h_counter = 0 then
-                h_display <= '1';
-            end if;
-        end if;
-    end process;
+    // Horizontal Display Enable
+    //
+    // h_display is modelled like a R/S flip-flop that reacts almost immediately
+    // to h_counter (one fast tick later)
+    //
+    // Important: No clock enable is used here
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        h_display <= 1'b0;
+    end else if (posedge CLOCK) begin
+        if (h_counter == r01_h_displayed || h_counter == r00_h_total) begin
+            h_display <= 1'b0;
+        end else if (h_counter == 8'b0) begin
+            h_display <= 1'b1;
+        end
+    end
+end
 
     // ===========================================================================
     
@@ -409,7 +392,7 @@ end
                          line_counter + 1 when adj_in_progress = '1' or not(r08_interlace(1 downto 0) = "11" and VGA = '0') else
                          line_counter(4 downto 1) + 1 & '0';
 
-    -- Vertical Row Counter
+    // Vertical Row Counter
 
     process(CLOCK,nRESET)
     begin
@@ -426,26 +409,26 @@ end
                         row_counter + 1 when r00_h_total_hit = '1' and max_scanline_hit = '1' else
                         row_counter;
 
-    -- Vertical Sync
-    --
-    -- Note: r03_v_sync_width should have the following effect:
-    --       0 => vsync lasting 16 lines
-    --       1 => vsync lasting 1 line
-    --       2 => vsync lasting 2 lines
-    --       ...
-    --       15 => vsync lasting 15 lines
-    --
-    -- Note: Measurements on a real beeb confirm:
-    --       even vsync is aligned with the start of the active display
-    --       odd vsync is delayed by exactly half a scan line
-    --
-    -- triggered immediately when C4=R7 (irrespective of h_counter)
-    -- possible to generate several VSYNCs in a frame
-    -- can only generate one VSYNC per row
-    -- vsync counter increments on C0=0
-    -- on vsync, vdisplay => 0
-    -- R3=0 => 16 lines
-    -- ??? what happens if R3 changes during vsync
+    // Vertical Sync
+    
+    // Note: r03_v_sync_width should have the following effect:
+    //       0 => vsync lasting 16 lines
+    //       1 => vsync lasting 1 line
+    //       2 => vsync lasting 2 lines
+    //       ...
+    //       15 => vsync lasting 15 lines
+    //
+    // Note: Measurements on a real beeb confirm:
+    //       even vsync is aligned with the start of the active display
+    //       odd vsync is delayed by exactly half a scan line
+    //
+    // triggered immediately when C4=R7 (irrespective of h_counter)
+    // possible to generate several VSYNCs in a frame
+    // can only generate one VSYNC per row
+    // vsync counter increments on C0=0
+    // on vsync, vdisplay => 0
+    // R3=0 => 16 lines
+    // ??? what happens if R3 changes during vsync
 
     vs_hit <= '1' when row_counter = r07_v_sync_pos else '0';
 
@@ -552,7 +535,7 @@ end
             extra_scanline <= '0';
         elsif rising_edge(CLOCK) then
             if CLKEN = '1' then
-
+/*
                 -- TODO: Confirm extactly when end of main (EOM) is latched
                 --
                 -- i.e. Is EOM latched on entering C0=1 or on exiting C0=1
@@ -588,7 +571,7 @@ end
                 --
                 -- Looking at the beebjit code, it seems latching end-of-main, vertical-adjust and
                 -- end-of-frame happen over three successive cycles.
-
+*/
                 -- Sol(0) is asserted during C0=0
                 -- Sol(1) is asserted during C0=1
                 -- Sol(2) is asserted during C0=2
