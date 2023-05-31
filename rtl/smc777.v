@@ -89,28 +89,28 @@ tv80n tv80n(
   .int_n(1'b1),		// I
   .nmi_n(1'b1),		// I
   .busrq_n(1'b1),	// I
-  .di(8'bzzzzzzzz),	// [7:0] I
-  .m1_n(),		// O
-  .mreq_n(),	// O
-  .iorq_n(),	// O
-  .rd_n(),		// O
-  .wr_n(),		// O
-  .rfsh_n(),	// O
-  .halt_n(),	// O
-  .busak_n(),	// O
-  .A(),	// [15:0] O
-  .dout()	// [7:0] O
+  .di(ram_q),		// [7:0] I
+  .m1_n(),			// O
+  .mreq_n(),		// O
+  .iorq_n(),		// O
+  .rd_n(),			// O
+  .wr_n(cpu_wr),	// O
+  .rfsh_n(),		// O
+  .halt_n(),		// O
+  .busak_n(),		// O
+  .A(ram_a),		// [15:0] O
+  .dout(ram_d)		// [7:0] O
 );
 
 mc6845 mc6845
 (
-    .CLOCK(),
-    .CLKEN(),
-    .CLKEN_CPU(),
-    .nRESET(),
+    .CLOCK(clk),
+    .CLKEN(1'b1),
+    .CLKEN_CPU(1'b1),
+    .nRESET(~reset),
 
     // Bus interface
-    .ENABLE(),
+    .ENABLE(1'b1),
     .R_nW(),
     .RS(),
     .DI(), // [7:0]
@@ -138,13 +138,27 @@ reg          ram_wr; // RAM write enable
 reg   [7:0]  ram_d;  // RAM write data
 reg  [15:0]  ram_a;  // RAM address
 reg   [7:0]  ram_q;  // RAM read data
-dpram #(8, 14) dpram
+dpram #(8, 14) rom
 (
 	.clock(clk),
-	.address_a(ioctl_download ? ioctl_addr[13:0] : ram_a[13:0]),
-	.wren_a(ioctl_wr | cpu_wr),
-	.data_a(ioctl_download ? ioctl_dout : ram_d),
+	.address_a(ioctl_addr[13:0]),
+	.wren_a(ioctl_wr),
+	.data_a(ioctl_dout),
 	.q_a(ram_q),
+
+	.wren_b(1'b0),
+	.address_b(),
+	.data_b(),
+	.q_b()
+);
+
+dpram #(8, 16) dpram
+(
+	.clock(clk),
+	.address_a(ram_a),
+	.wren_a(cpu_wr),
+	.data_a(ram_d),
+	.q_a(),
 
 	.wren_b(1'b0),
 	.address_b(),

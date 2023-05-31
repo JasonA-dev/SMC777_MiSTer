@@ -464,17 +464,28 @@ void Vtop::traceChgSub0(void* userp, VerilatedVcd* tracep) {
         tracep->chgBit(oldp+441,(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit));
         tracep->chgBit(oldp+442,(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit));
         tracep->chgCData(oldp+443,(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp),4);
-        tracep->chgBit(oldp+444,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__clock));
-        tracep->chgBit(oldp+445,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__ram_cs));
-        tracep->chgBit(oldp+446,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__wren_a));
-        tracep->chgSData(oldp+447,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__address_a),14);
-        tracep->chgCData(oldp+448,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__data_a),8);
-        tracep->chgCData(oldp+449,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__q_a),8);
-        tracep->chgBit(oldp+450,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__ram_cs_b));
-        tracep->chgBit(oldp+451,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__wren_b));
-        tracep->chgSData(oldp+452,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__address_b),14);
-        tracep->chgCData(oldp+453,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__data_b),8);
-        tracep->chgCData(oldp+454,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__q_b),8);
+        tracep->chgBit(oldp+444,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__clock));
+        tracep->chgBit(oldp+445,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__ram_cs));
+        tracep->chgBit(oldp+446,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__wren_a));
+        tracep->chgSData(oldp+447,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__address_a),14);
+        tracep->chgCData(oldp+448,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__data_a),8);
+        tracep->chgCData(oldp+449,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__q_a),8);
+        tracep->chgBit(oldp+450,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__ram_cs_b));
+        tracep->chgBit(oldp+451,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__wren_b));
+        tracep->chgSData(oldp+452,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__address_b),14);
+        tracep->chgCData(oldp+453,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__data_b),8);
+        tracep->chgCData(oldp+454,(vlTOPp->top__DOT__smc777__DOT__rom__DOT__q_b),8);
+        tracep->chgBit(oldp+455,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__clock));
+        tracep->chgBit(oldp+456,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__ram_cs));
+        tracep->chgBit(oldp+457,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__wren_a));
+        tracep->chgSData(oldp+458,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__address_a),16);
+        tracep->chgCData(oldp+459,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__data_a),8);
+        tracep->chgCData(oldp+460,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__q_a),8);
+        tracep->chgBit(oldp+461,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__ram_cs_b));
+        tracep->chgBit(oldp+462,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__wren_b));
+        tracep->chgSData(oldp+463,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__address_b),16);
+        tracep->chgCData(oldp+464,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__data_b),8);
+        tracep->chgCData(oldp+465,(vlTOPp->top__DOT__smc777__DOT__dpram__DOT__q_b),8);
     }
 }
 

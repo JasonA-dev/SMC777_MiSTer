@@ -50,8 +50,6 @@ VL_MODULE(Vtop) {
 
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
-    CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
-    CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     CData/*0:0*/ top__DOT__clk_48;
     CData/*0:0*/ top__DOT__clk_24;
     CData/*7:0*/ top__DOT__VGA_R;
@@ -345,8 +343,10 @@ VL_MODULE(Vtop) {
     CData/*7:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__E;
     CData/*7:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__H;
     CData/*7:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L;
+    CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__CLKEN;
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU;
+    CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__ENABLE;
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__R_nW;
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__RS;
@@ -420,6 +420,15 @@ VL_MODULE(Vtop) {
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit;
     CData/*0:0*/ top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit;
     CData/*3:0*/ top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp;
+    CData/*0:0*/ top__DOT__smc777__DOT__rom__DOT__clock;
+    CData/*0:0*/ top__DOT__smc777__DOT__rom__DOT__ram_cs;
+    CData/*0:0*/ top__DOT__smc777__DOT__rom__DOT__wren_a;
+    CData/*7:0*/ top__DOT__smc777__DOT__rom__DOT__data_a;
+    CData/*7:0*/ top__DOT__smc777__DOT__rom__DOT__q_a;
+    CData/*0:0*/ top__DOT__smc777__DOT__rom__DOT__ram_cs_b;
+    CData/*0:0*/ top__DOT__smc777__DOT__rom__DOT__wren_b;
+    CData/*7:0*/ top__DOT__smc777__DOT__rom__DOT__data_b;
+    CData/*7:0*/ top__DOT__smc777__DOT__rom__DOT__q_b;
     CData/*0:0*/ top__DOT__smc777__DOT__dpram__DOT__clock;
     CData/*0:0*/ top__DOT__smc777__DOT__dpram__DOT__ram_cs;
     CData/*0:0*/ top__DOT__smc777__DOT__dpram__DOT__wren_a;
@@ -459,8 +468,10 @@ VL_MODULE(Vtop) {
     SData/*13:0*/ top__DOT__smc777__DOT__mc6845__DOT__MA;
     SData/*13:0*/ top__DOT__smc777__DOT__mc6845__DOT__ma_i;
     SData/*13:0*/ top__DOT__smc777__DOT__mc6845__DOT__ma_row;
-    SData/*13:0*/ top__DOT__smc777__DOT__dpram__DOT__address_a;
-    SData/*13:0*/ top__DOT__smc777__DOT__dpram__DOT__address_b;
+    SData/*13:0*/ top__DOT__smc777__DOT__rom__DOT__address_a;
+    SData/*13:0*/ top__DOT__smc777__DOT__rom__DOT__address_b;
+    SData/*15:0*/ top__DOT__smc777__DOT__dpram__DOT__address_a;
+    SData/*15:0*/ top__DOT__smc777__DOT__dpram__DOT__address_b;
     IData/*24:0*/ top__DOT__ioctl_addr;
     IData/*24:0*/ top__DOT__smc777__DOT__ioctl_addr;
     IData/*31:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux;
@@ -468,14 +479,13 @@ VL_MODULE(Vtop) {
     QData/*63:0*/ top__DOT__smc777__DOT__rnd;
     VlUnpacked<CData/*7:0*/, 8> top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH;
     VlUnpacked<CData/*7:0*/, 8> top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL;
-    VlUnpacked<CData/*7:0*/, 16384> top__DOT__smc777__DOT__dpram__DOT__mem;
+    VlUnpacked<CData/*7:0*/, 16384> top__DOT__smc777__DOT__rom__DOT__mem;
+    VlUnpacked<CData/*7:0*/, 65536> top__DOT__smc777__DOT__dpram__DOT__mem;
 
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
     CData/*0:0*/ top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
     CData/*7:0*/ top__DOT____Vcellout__smc777__video;
-    CData/*7:0*/ top__DOT__smc777__DOT____Vcellinp__dpram__data_a;
-    CData/*0:0*/ top__DOT__smc777__DOT____Vcellinp__dpram__wren_a;
     CData/*7:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL;
     CData/*7:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH;
     CData/*7:0*/ top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL;
@@ -584,24 +594,19 @@ VL_MODULE(Vtop) {
     CData/*0:0*/ __Vfunc_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__AddSub1__31__B;
     CData/*0:0*/ __Vfunc_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__AddSub1__31__Sub;
     CData/*0:0*/ __Vfunc_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__AddSub1__31__Carry_In;
+    CData/*7:0*/ __Vdlyvval__top__DOT__smc777__DOT__rom__DOT__mem__v0;
+    CData/*0:0*/ __Vdlyvset__top__DOT__smc777__DOT__rom__DOT__mem__v0;
     CData/*7:0*/ __Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__ACC;
     CData/*7:0*/ __Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__F;
     CData/*6:0*/ __Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate;
     CData/*6:0*/ __Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle;
-    CData/*7:0*/ __Vdly__top__DOT__smc777__DOT__mc6845__DOT__h_counter;
-    CData/*3:0*/ __Vdly__top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter;
-    CData/*2:0*/ __Vdly__top__DOT__smc777__DOT__mc6845__DOT__sol;
-    CData/*3:0*/ __Vdly__top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync;
     CData/*0:0*/ __VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
-    CData/*0:0*/ __Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
-    CData/*0:0*/ __Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     CData/*0:0*/ __Vclklast__TOP__clk_48;
     CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
     CData/*0:0*/ __Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
-    SData/*13:0*/ top__DOT__smc777__DOT____Vcellinp__dpram__address_a;
+    SData/*13:0*/ __Vdlyvdim0__top__DOT__smc777__DOT__rom__DOT__mem__v0;
     SData/*15:0*/ __Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__PC;
     SData/*15:0*/ __Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP;
-    SData/*13:0*/ __Vdly__top__DOT__smc777__DOT__mc6845__DOT__ma_i;
     VlUnpacked<CData/*0:0*/, 1> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
@@ -700,9 +705,13 @@ VL_MODULE(Vtop) {
     static const IData var_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__Flag_Z;
     enum _IDatatop__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__Flag_S { top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__Flag_S = 7U};
     static const IData var_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__Flag_S;
+    enum _IDatatop__DOT__smc777__DOT__rom__DOT__data_width_g { top__DOT__smc777__DOT__rom__DOT__data_width_g = 8U};
+    static const IData var_top__DOT__smc777__DOT__rom__DOT__data_width_g;
+    enum _IDatatop__DOT__smc777__DOT__rom__DOT__addr_width_g { top__DOT__smc777__DOT__rom__DOT__addr_width_g = 0xeU};
+    static const IData var_top__DOT__smc777__DOT__rom__DOT__addr_width_g;
     enum _IDatatop__DOT__smc777__DOT__dpram__DOT__data_width_g { top__DOT__smc777__DOT__dpram__DOT__data_width_g = 8U};
     static const IData var_top__DOT__smc777__DOT__dpram__DOT__data_width_g;
-    enum _IDatatop__DOT__smc777__DOT__dpram__DOT__addr_width_g { top__DOT__smc777__DOT__dpram__DOT__addr_width_g = 0xeU};
+    enum _IDatatop__DOT__smc777__DOT__dpram__DOT__addr_width_g { top__DOT__smc777__DOT__dpram__DOT__addr_width_g = 0x10U};
     static const IData var_top__DOT__smc777__DOT__dpram__DOT__addr_width_g;
 
     // CONSTRUCTORS
@@ -742,9 +751,9 @@ VL_MODULE(Vtop) {
     static QData _change_request(Vtop__Syms* __restrict vlSymsp);
     static QData _change_request_1(Vtop__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__11(Vtop__Syms* __restrict vlSymsp);
-    static void _combo__TOP__15(Vtop__Syms* __restrict vlSymsp);
-    static void _combo__TOP__4(Vtop__Syms* __restrict vlSymsp);
+    static void _combo__TOP__12(Vtop__Syms* __restrict vlSymsp);
+    static void _combo__TOP__2(Vtop__Syms* __restrict vlSymsp);
+    static void _combo__TOP__8(Vtop__Syms* __restrict vlSymsp);
   private:
     static void _ctor_var_reset(Vtop* self) VL_ATTR_COLD;
   public:
@@ -758,16 +767,13 @@ VL_MODULE(Vtop) {
     static void _eval_settle(Vtop__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _initial__TOP__1(Vtop__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _sequent__TOP__10(Vtop__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__12(Vtop__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__13(Vtop__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__14(Vtop__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__11(Vtop__Syms* __restrict vlSymsp);
     static void _sequent__TOP__5(Vtop__Syms* __restrict vlSymsp);
     static void _sequent__TOP__6(Vtop__Syms* __restrict vlSymsp);
     static void _sequent__TOP__7(Vtop__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__8(Vtop__Syms* __restrict vlSymsp);
     static void _sequent__TOP__9(Vtop__Syms* __restrict vlSymsp);
-    static void _settle__TOP__2(Vtop__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__3(Vtop__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__4(Vtop__Syms* __restrict vlSymsp) VL_ATTR_COLD;
   private:
     static void traceChgSub0(void* userp, VerilatedVcd* tracep);
     static void traceChgTop0(void* userp, VerilatedVcd* tracep);
