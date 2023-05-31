@@ -373,41 +373,51 @@ end
     -- In interlaced sync + video mode it counts in steps of 2
     -- In interlaced sync mode and non-interlaced mode it counts in steps of 1
     -- In vertical adjust it also counts in steps of 1 regardless
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            line_counter <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                if new_frame = '1' then
-                    line_counter <= (others => '0');
-                elsif r00_h_total_hit = '1' then
-                    line_counter <= line_counter_next;
-                end if;
-            end if;
-        end if;
-    end process;
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        line_counter <= 7'b0;
+    end else if (posedge CLOCK) begin
+        if (CLKEN == 1'b1) begin
+            if (new_frame == 1'b1) begin
+                line_counter <= 7'b0;
+            end else if (r00_h_total_hit == 1'b1) begin
+                line_counter <= line_counter_next;
+            end
+        end
+    end
+end
 
-    line_counter_next <= (others => '0') when max_scanline_hit = '1' else
-                         line_counter + 1 when adj_in_progress = '1' or not(r08_interlace(1 downto 0) = "11" and VGA = '0') else
-                         line_counter(4 downto 1) + 1 & '0';
+always @* begin
+    if (max_scanline_hit) begin
+        line_counter_next = 5'b0;
+    end else if (adj_in_progress || !(r08_interlace[1:0] == 2'b11 && VGA == 1'b0)) begin
+        line_counter_next = line_counter + 1;
+    end else begin
+        line_counter_next = {line_counter[4:1] + 1, 1'b0};
+    end
+end
 
     // Vertical Row Counter
 
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            row_counter <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                row_counter <= row_counter_next;
-            end if;
-        end if;
-    end process;
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        row_counter <= 7'b0;
+    end else if (posedge CLOCK) begin
+        if (CLKEN == 1'b1) begin
+            row_counter <= row_counter_next;
+        end
+    end
+end
 
-    row_counter_next <= (others => '0') when new_frame = '1' else
-                        row_counter + 1 when r00_h_total_hit = '1' and max_scanline_hit = '1' else
-                        row_counter;
+always @* begin
+    if (new_frame) begin
+        row_counter_next = 7'b0;
+    end else if (r00_h_total_hit && max_scanline_hit) begin
+        row_counter_next = row_counter + 1;
+    end else begin
+        row_counter_next = row_counter;
+    end
+end
 
     // Vertical Sync
     
@@ -430,72 +440,65 @@ end
     // R3=0 => 16 lines
     // ??? what happens if R3 changes during vsync
 
-    vs_hit <= '1' when row_counter = r07_v_sync_pos else '0';
+assign vs_hit = (row_counter == r07_v_sync_pos) ? 1'b1 : 1'b0;
 
-    -- Generate an even vsync that is aligned to h_counter = 0
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            v_sync_counter <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                if vs_hit = '1' and vs_hit_last = '0' then
-                    v_sync_counter <= x"0";
-                elsif r00_h_total_hit = '1' then
-                    v_sync_counter <= v_sync_counter + 1;
-                end if;
-                vs_hit_last <= vs_hit;
-            end if;
-        end if;
-    end process;
+    // Generate an even vsync that is aligned to h_counter = 0
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        v_sync_counter <= 4'b0;
+    end else if (posedge CLOCK) begin
+        if (CLKEN == 1'b1) begin
+            if ((vs_hit == 1'b1) && (vs_hit_last == 1'b0)) begin
+                v_sync_counter <= 4'h0;
+            end else if (r00_h_total_hit == 1'b1) begin
+                v_sync_counter <= v_sync_counter + 1;
+            end
+            vs_hit_last <= vs_hit;
+        end
+    end
+end
 
-    -- vs_even is modelled like a R/S flip-flop
-    -- Important: No clock enable is used here
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            vs_even <= '0';
-        elsif rising_edge(CLOCK) then
-            if vs_hit = '1' and vs_hit_last = '0' then
-                -- one CLOCK tick C4=R7 (which normally conincides with C0=0)
-                vs_even <= '1';
-            elsif v_sync_counter = r03_v_sync_width and sol(0) = '1' then
-                -- one CLOCK tick after C3=R3h and C0=0
-                vs_even <= '0';
-            end if;
-        end if;
-    end process;
+    // vs_even is modelled like a R/S flip-flop
+    // Important: No clock enable is used here
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        vs_even <= 1'b0;
+    end else if (posedge CLOCK) begin
+        if ((vs_hit == 1'b1) && (vs_hit_last == 1'b0)) begin
+            vs_even <= 1'b1;
+        end else if ((v_sync_counter == r03_v_sync_width) && (sol[0] == 1'b1)) begin
+            vs_even <= 1'b0;
+        end
+    end
+end
 
-    -- Generate an odd vsync that is delayed by half a line
-    process(CLOCK)
-    begin
-        if rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                if h_counter = ("0" & r00_h_total(7 downto 1)) then
-                    vs_odd <= vs_even;
-                end if;
-            end if;
-        end if;
-    end process;
+    // Generate an odd vsync that is delayed by half a line
+always @(posedge CLOCK) begin
+    if (CLKEN == 1'b1) begin
+        if (h_counter == {1'b0, r00_h_total[7:1]}) begin
+            vs_odd <= vs_even;
+        end
+    end
+end
 
-    -- Select between vs_odd and vs_even based on interlace state
-    vs <= vs_odd when r08_interlace(0) = '1' and VGA = '0' and odd_field = '0' else vs_even;
-    VSYNC <= vs; -- External VSYNC driven directly from internal signal
+    // Select between vs_odd and vs_even based on interlace state
+assign vs = (r08_interlace[0] == 1'b1 && VGA == 1'b0 && odd_field == 1'b0) ? vs_odd : vs_even;
+assign VSYNC = vs; // External VSYNC driven directly from internal signal
 
-    -- Vertical Display Enable
-    --
-    -- JSBEEB contains this comment concerning R6 hit:
-    --    The Hitachi 6845 will notice this equality at any character,
-    --    including in the middle of a scanline.
-    --
-    -- Surprisingly, the odd/even flag and field counter are updated based on R6
-    -- i.e. Both cursor blink and interlace cease if R6 > R4.
-    -- https://github.com/mattgodbolt/jsbeeb/blob/main/video.js#L641
-    --
-    -- In interlaced modes, the LSB of the field counter indicates the odd/even field type
-    -- which is latched in odd_field so it's stable for the whole of the next frame.
-    --
-    -- Important: No clock enable is used here
+    // Vertical Display Enable
+    
+    // JSBEEB contains this comment concerning R6 hit:
+    //    The Hitachi 6845 will notice this equality at any character,
+    //    including in the middle of a scanline.
+    
+    // Surprisingly, the odd/even flag and field counter are updated based on R6
+    // i.e. Both cursor blink and interlace cease if R6 > R4.
+    // https://github.com/mattgodbolt/jsbeeb/blob/main/video.js#L641
+    
+    // In interlaced modes, the LSB of the field counter indicates the odd/even field type
+    // which is latched in odd_field so it's stable for the whole of the next frame.
+    
+    // Important: No clock enable is used here
     process(CLOCK,nRESET)
     begin
         if nRESET = '0' then
