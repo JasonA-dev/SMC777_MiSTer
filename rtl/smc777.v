@@ -1,5 +1,5 @@
 
-module mycore
+module smc777
 (
 	input         clk,
 	input         reset,
@@ -24,8 +24,6 @@ reg  [63:0] rnd_reg;
 
 wire  [5:0] rnd_c = {rnd_reg[0],rnd_reg[1],rnd_reg[2],rnd_reg[2],rnd_reg[2],rnd_reg[2]};
 wire [63:0] rnd;
-
-lfsr random(rnd);
 
 always @(posedge clk) begin
 	if(scandouble) ce_pix <= 1;
@@ -78,8 +76,7 @@ always @(posedge clk) begin
 	if (hc == 590) HSync <= 0;
 end
 
-tv80n tv80n()
-(
+tv80n tv80n(
   .reset_n(reset),	// I
   .clk(clk),		// I
   .wait_n(1'b1),	// I
@@ -87,17 +84,18 @@ tv80n tv80n()
   .nmi_n(1'b1),		// I
   .busrq_n(1'b1),	// I
   .di(8'bzzzzzzzz),	// [7:0] I
-  .m1_n(1'b1),		// O
-  .mreq_n(1'b1),	// O
-  .iorq_n(1'b1),	// O
-  .rd_n(1'b1),		// O
-  .wr_n(1'b1),		// O
-  .rfsh_n(1'b1),	// O
-  .halt_n(1'b1),	// O
-  .busak_n(1'b1),	// O
-  .A(16'bzzzzzzzzzzzzzzzz),	// [15:0] O
-  .dout(8'bzzzzzzzz)	// [7:0] O
+  .m1_n(),		// O
+  .mreq_n(),	// O
+  .iorq_n(),	// O
+  .rd_n(),		// O
+  .wr_n(),		// O
+  .rfsh_n(),	// O
+  .halt_n(),	// O
+  .busak_n(),	// O
+  .A(),	// [15:0] O
+  .dout()	// [7:0] O
 );
+
 
 /*
 reg  [7:0] cos_out;

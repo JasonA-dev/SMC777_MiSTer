@@ -1,0 +1,2 @@
+C:\NoSync\MiSTer\MyRepos\RCAStudioII_Mister\verilator\x64\Release\sim.exe
+C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.exe
