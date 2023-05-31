@@ -11,4 +11,5 @@ verilator \
 ../rtl/tv80/tv80_mcode.v \
 ../rtl/tv80/tv80_alu.v \
 ../rtl/tv80/tv80_reg.v \
-../rtl/dpram.sv
+../rtl/dpram.sv \
+../rtl/mc6845v/mc6845.v

@@ -102,6 +102,36 @@ tv80n tv80n(
   .dout()	// [7:0] O
 );
 
+mc6845 mc6845
+(
+    .CLOCK(),
+    .CLKEN(),
+    .CLKEN_CPU(),
+    .nRESET(),
+
+    // Bus interface
+    .ENABLE(),
+    .R_nW(),
+    .RS(),
+    .DI(), // [7:0]
+    .DO(), // [7.0]
+
+    // Display interface
+    .VSYNC(),
+    .HSYNC(),
+    .DE(),
+    .CURSOR(),
+    .LPSTB(),
+
+    .VGA(), // Output Mode 7 as 624 line non-interlaced
+
+    // Memory interface
+    .MA(), // [13:0]
+    .RA(), // [4:0]
+    .test() // [3:0]
+);
+
+
 reg          ram_cs;
 reg          ram_rd; // RAM read enable
 reg          ram_wr; // RAM write enable

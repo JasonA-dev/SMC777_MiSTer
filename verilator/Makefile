@@ -60,7 +60,8 @@ V_SRC = \
 	$(RTL)/tv80/tv80_mcode.v \
 	$(RTL)/tv80/tv80_alu.v \
 	$(RTL)/tv80/tv80_reg.v \
-	$(RTL)/dpram.sv
+	$(RTL)/dpram.sv \
+	$(RTL)/mc6845v/mc6845.v
 
 C_SRC = \
 	sim_main.cpp  \

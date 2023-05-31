@@ -41,32 +41,33 @@ BBC Micro for Altera DE1
 
 // Synchronous implementation for FPGA
 
-module mc6845 (
-    input CLOCK;
-    input CLKEN;
-    input CLKEN_CPU;
-    input nRESET;
+module mc6845 
+(
+    input CLOCK,
+    input CLKEN,
+    input CLKEN_CPU,
+    input nRESET,
 
     // Bus interface
-    input ENABLE;
-    input R_nW;
-    input RS;
-    input [7:0] DI;
-    output [7:0] DO;
+    input ENABLE,
+    input R_nW,
+    input RS,
+    input [7:0] DI,
+    output [7:0] DO,
 
     // Display interface
-    output VSYNC;
-    output HSYNC;
-    output DE;
-    output CURSOR;
-    input LPSTB;
+    output VSYNC,
+    output HSYNC,
+    output DE,
+    output CURSOR,
+    input LPSTB,
 
-    input VGA; // Output Mode 7 as 624 line non-interlaced
+    input VGA, // Output Mode 7 as 624 line non-interlaced
 
     // Memory interface
-    output [13:0] MA;
-    output [4:0] RA;
-    output [3:0] test;
+    output [13:0] MA,
+    output [4:0] RA,
+    output [3:0] test
 );
 
 // Host-accessible registers
@@ -333,7 +334,7 @@ always @(posedge CLOCK or negedge nRESET) begin
     end
 end
 
-assign HSYNC = hs; -- External HSYNC driven directly from internal signal
+assign HSYNC = hs; // External HSYNC driven directly from internal signal
 
     // Horizontal Display Enable
     //
@@ -488,7 +489,7 @@ assign VSYNC = vs; // External VSYNC driven directly from internal signal
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         v_display <= 1'b0;
-        field_counter <= {1'b0, field_counter[field_counter'length - 2:1]};
+        field_counter <= 0;
         odd_field <= 1'b0;
     end 
     else begin
@@ -559,7 +560,7 @@ always @(posedge CLOCK or negedge nRESET) begin
             // Sol(0) is asserted during C0=0
             // Sol(1) is asserted during C0=1
             // Sol(2) is asserted during C0=2
-            sol <= {sol[sol'length - 2:0], r00_h_total_hit};
+            sol <= {sol[1:0], r00_h_total_hit};
 
             // One clock after the start of the line (after C0=0), latch end-of-main
             if (new_frame == 1'b1) 
@@ -667,9 +668,9 @@ always @(posedge CLOCK) begin
     end
 end    
 
-assign RA = (interlaced_video == 1'b1) ? {line_counter[4:1], odd_field} : std_logic_vector(line_counter);
+assign RA = (interlaced_video == 1'b1) ? {line_counter[4:1], odd_field} : line_counter;
 
-assign MA = std_logic_vector(ma_i);
+assign MA = ma_i;
 
 
     // ===========================================================================
@@ -678,13 +679,13 @@ assign MA = std_logic_vector(ma_i);
 
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
-        lpstb_sync <= {1'b0, lpstb_sync[lpstb_sync'length - 2:1]};
+        lpstb_sync <= {1'b0, lpstb_sync[lpstb_sync.length - 2:1]};
         r16_light_pen_h <= 6'b0;
         r17_light_pen_l <= 8'b0;
     end 
     else begin
         if (CLKEN == 1'b1) begin
-            lpstb_sync <= {LPSTB, lpstb_sync[lpstb_sync'length - 2:1]};
+            lpstb_sync <= {LPSTB, lpstb_sync[lpstb_sync.length - 2:1]};
             if ((lpstb_sync[1] == 1'b1) && (lpstb_sync[0] == 1'b0)) begin
                 r16_light_pen_h <= ma_i[13:8];
                 r17_light_pen_l <= ma_i[7:0];
