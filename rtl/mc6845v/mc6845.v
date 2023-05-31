@@ -41,7 +41,6 @@ BBC Micro for Altera DE1
 
 // Synchronous implementation for FPGA
 
-
 module mc6845 (
     input CLOCK;
     input CLKEN;
@@ -69,7 +68,6 @@ module mc6845 (
     output [4:0] RA;
     output [3:0] test;
 );
-
 
 // Host-accessible registers
 reg [4:0] addr_reg;                   // Currently addressed register
@@ -146,12 +144,8 @@ reg new_frame;                     // New frame signal
 wire r00_h_total_hit;              // H total hit signal
 wire max_scanline_hit;             // Max scanline hit signal
 
-begin
-
     // ===========================================================================
-    
     // Common combinatorial logic
-    
     // ===========================================================================
 
     // TODO: Review the below two expressions, as the VGA mode criteria should really be the same
@@ -199,9 +193,7 @@ always @* begin
         new_frame = 1'b0;
 end
     // ===========================================================================
-    
     // Registers
-    
     // ===========================================================================
 
 always @(posedge CLOCK or negedge nRESET) begin
@@ -230,70 +222,68 @@ always @(posedge CLOCK or negedge nRESET) begin
         DO <= 8'b0;
     end
     else begin
-    if (ENABLE) begin
-        if (R_nW) begin
-            // Read operation
-            case (addr_reg)
-                5'b01100: DO <= {2'b00, r12_start_addr_h};
-                5'b01101: DO <= r13_start_addr_l;
-                5'b01110: DO <= {2'b00, r14_cursor_h};
-                5'b01111: DO <= r15_cursor_l;
-                5'b10000: DO <= {2'b00, r16_light_pen_h};
-                5'b10001: DO <= r17_light_pen_l;
-                default: DO <= 8'b0;
-            endcase
-        end
+        if (ENABLE) begin
+            if (R_nW) begin
+                // Read operation
+                case (addr_reg)
+                    5'b01100: DO <= {2'b00, r12_start_addr_h};
+                    5'b01101: DO <= r13_start_addr_l;
+                    5'b01110: DO <= {2'b00, r14_cursor_h};
+                    5'b01111: DO <= r15_cursor_l;
+                    5'b10000: DO <= {2'b00, r16_light_pen_h};
+                    5'b10001: DO <= r17_light_pen_l;
+                    default: DO <= 8'b0;
+                endcase
+            end
         else if (CLKEN_CPU) begin
             // Write operation
-                if (RS == 1'b0)
-                    addr_reg <= DI[4:0];
-                else begin
-                    case (addr_reg)
-                        5'b00000: r00_h_total <= DI;
-                        5'b00001: r01_h_displayed <= DI;
-                        5'b00010: r02_h_sync_pos <= DI;
-                        5'b00011: begin
-                            r03_v_sync_width <= DI[7:4];
-                            r03_h_sync_width <= DI[3:0];
-                        end
-                        5'b00100: r04_v_total <= DI[6:0];
-                        5'b00101: r05_v_total_adj <= DI[4:0];
-                        5'b00110: r06_v_displayed <= DI[6:0];
-                        5'b00111: r07_v_sync_pos <= DI[6:0];
-                        5'b01000: r08_interlace <= DI[7:0];
-                        5'b01001: r09_max_scanline_addr <= DI[4:0];
-                        5'b01010: begin
-                            r10_cursor_mode <= DI[6:5];
-                            r10_cursor_start <= DI[4:0];
-                        end
-                        5'b01011: r11_cursor_end <= DI[4:0];
-                        5'b01100: r12_start_addr_h <= DI[5:0];
-                        5'b01101: r13_start_addr_l <= DI[7:0];
-                        5'b01110: r14_cursor_h <= DI[5:0];
-                        5'b01111: r15_cursor_l <= DI[7:0];
-                    endcase
-                end
+            if (RS == 1'b0)
+                addr_reg <= DI[4:0];
+            else begin
+                case (addr_reg)
+                    5'b00000: r00_h_total <= DI;
+                    5'b00001: r01_h_displayed <= DI;
+                    5'b00010: r02_h_sync_pos <= DI;
+                    5'b00011: begin
+                        r03_v_sync_width <= DI[7:4];
+                        r03_h_sync_width <= DI[3:0];
+                    end
+                    5'b00100: r04_v_total <= DI[6:0];
+                    5'b00101: r05_v_total_adj <= DI[4:0];
+                    5'b00110: r06_v_displayed <= DI[6:0];
+                    5'b00111: r07_v_sync_pos <= DI[6:0];
+                    5'b01000: r08_interlace <= DI[7:0];
+                    5'b01001: r09_max_scanline_addr <= DI[4:0];
+                    5'b01010: begin
+                        r10_cursor_mode <= DI[6:5];
+                        r10_cursor_start <= DI[4:0];
+                    end
+                    5'b01011: r11_cursor_end <= DI[4:0];
+                    5'b01100: r12_start_addr_h <= DI[5:0];
+                    5'b01101: r13_start_addr_l <= DI[7:0];
+                    5'b01110: r14_cursor_h <= DI[5:0];
+                    5'b01111: r15_cursor_l <= DI[7:0];
+                endcase
+            end
+        end
         end
     end
-    end
-
+end
     // ===========================================================================
-    
     // HORIZONTAL TIMING
-    
     // ===========================================================================
 
     // Horizontal Counter
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         h_counter <= 8'b0;
-    end else if (posedge CLOCK) begin
+    end 
+    else begin
         if (CLKEN) begin
-            if (r00_h_total_hit) begin
+            if (r00_h_total_hit) 
                 h_counter <= 8'b0;
-            end else begin
+            else 
                 h_counter <= h_counter + 1;
-            end
         end
     end
 end
@@ -314,13 +304,13 @@ end
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         h_counter <= 8'b0;
-    end else if (posedge CLOCK) begin
+    end 
+    else begin
         if (CLKEN) begin
-            if (r00_h_total_hit) begin
+            if (r00_h_total_hit) 
                 h_counter <= 8'b0;
-            end else begin
+            else 
                 h_counter <= h_counter + 1;
-            end
         end
     end
 end
@@ -334,16 +324,16 @@ end
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         hs <= 1'b0;
-    end else if (posedge CLOCK) begin
-        if (h_sync_counter == r03_h_sync_width) begin
+    end 
+    else begin
+        if (h_sync_counter == r03_h_sync_width) 
             hs <= 1'b0;
-        end else if (h_counter == r02_h_sync_pos) begin
+        else if (h_counter == r02_h_sync_pos) 
             hs <= 1'b1;
-        end
     end
 end
 
-    assign HSYNC = hs; -- External HSYNC driven directly from internal signal
+assign HSYNC = hs; -- External HSYNC driven directly from internal signal
 
     // Horizontal Display Enable
     //
@@ -354,47 +344,44 @@ end
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         h_display <= 1'b0;
-    end else if (posedge CLOCK) begin
-        if (h_counter == r01_h_displayed || h_counter == r00_h_total) begin
+    end 
+    else begin
+        if (h_counter == r01_h_displayed || h_counter == r00_h_total) 
             h_display <= 1'b0;
-        end else if (h_counter == 8'b0) begin
+        else if (h_counter == 8'b0) 
             h_display <= 1'b1;
-        end
     end
 end
 
     // ===========================================================================
-    
     // VERTICAL TIMING
-    
     // ===========================================================================
 
-    -- Vertical Scanline Counter (also used for vertical adjust)
-    -- In interlaced sync + video mode it counts in steps of 2
-    -- In interlaced sync mode and non-interlaced mode it counts in steps of 1
-    -- In vertical adjust it also counts in steps of 1 regardless
+    // Vertical Scanline Counter (also used for vertical adjust)
+    // In interlaced sync + video mode it counts in steps of 2
+    // In interlaced sync mode and non-interlaced mode it counts in steps of 1
+    // In vertical adjust it also counts in steps of 1 regardless
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         line_counter <= 7'b0;
-    end else if (posedge CLOCK) begin
+    end 
+    else begin
         if (CLKEN == 1'b1) begin
-            if (new_frame == 1'b1) begin
+            if (new_frame == 1'b1) 
                 line_counter <= 7'b0;
-            end else if (r00_h_total_hit == 1'b1) begin
+            else if (r00_h_total_hit == 1'b1) 
                 line_counter <= line_counter_next;
-            end
         end
     end
 end
 
 always @* begin
-    if (max_scanline_hit) begin
+    if (max_scanline_hit) 
         line_counter_next = 5'b0;
-    end else if (adj_in_progress || !(r08_interlace[1:0] == 2'b11 && VGA == 1'b0)) begin
+    else if (adj_in_progress || !(r08_interlace[1:0] == 2'b11 && VGA == 1'b0)) 
         line_counter_next = line_counter + 1;
-    end else begin
+    else 
         line_counter_next = {line_counter[4:1] + 1, 1'b0};
-    end
 end
 
     // Vertical Row Counter
@@ -402,21 +389,20 @@ end
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         row_counter <= 7'b0;
-    end else if (posedge CLOCK) begin
-        if (CLKEN == 1'b1) begin
+    end 
+    else begin
+        if (CLKEN == 1'b1) 
             row_counter <= row_counter_next;
-        end
     end
 end
 
 always @* begin
-    if (new_frame) begin
+    if (new_frame) 
         row_counter_next = 7'b0;
-    end else if (r00_h_total_hit && max_scanline_hit) begin
+    else if (r00_h_total_hit && max_scanline_hit) 
         row_counter_next = row_counter + 1;
-    end else begin
+    else 
         row_counter_next = row_counter;
-    end
 end
 
     // Vertical Sync
@@ -446,13 +432,14 @@ assign vs_hit = (row_counter == r07_v_sync_pos) ? 1'b1 : 1'b0;
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         v_sync_counter <= 4'b0;
-    end else if (posedge CLOCK) begin
+    end 
+    else begin
         if (CLKEN == 1'b1) begin
-            if ((vs_hit == 1'b1) && (vs_hit_last == 1'b0)) begin
+            if ((vs_hit == 1'b1) && (vs_hit_last == 1'b0)) 
                 v_sync_counter <= 4'h0;
-            end else if (r00_h_total_hit == 1'b1) begin
+            else if (r00_h_total_hit == 1'b1) 
                 v_sync_counter <= v_sync_counter + 1;
-            end
+            
             vs_hit_last <= vs_hit;
         end
     end
@@ -463,21 +450,20 @@ end
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
         vs_even <= 1'b0;
-    end else if (posedge CLOCK) begin
-        if ((vs_hit == 1'b1) && (vs_hit_last == 1'b0)) begin
+    end 
+    else begin
+        if ((vs_hit == 1'b1) && (vs_hit_last == 1'b0)) 
             vs_even <= 1'b1;
-        end else if ((v_sync_counter == r03_v_sync_width) && (sol[0] == 1'b1)) begin
+        else if ((v_sync_counter == r03_v_sync_width) && (sol[0] == 1'b1)) 
             vs_even <= 1'b0;
-        end
     end
 end
 
     // Generate an odd vsync that is delayed by half a line
 always @(posedge CLOCK) begin
     if (CLKEN == 1'b1) begin
-        if (h_counter == {1'b0, r00_h_total[7:1]}) begin
+        if (h_counter == {1'b0, r00_h_total[7:1]}) 
             vs_odd <= vs_even;
-        end
     end
 end
 
@@ -499,45 +485,40 @@ assign VSYNC = vs; // External VSYNC driven directly from internal signal
     // which is latched in odd_field so it's stable for the whole of the next frame.
     
     // Important: No clock enable is used here
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            v_display <= '0';
-            field_counter <= (others => '0');
-            odd_field <= '0';
-        elsif rising_edge(CLOCK) then
-            if first_scanline = '1' then
-                -- Enable the display when C4 = C9 = 0
-                v_display <= '1';
-                -- Latch odd field so it's stable for the whole field
-                odd_field <= field_counter(0);
-            elsif row_counter = r06_v_displayed and v_display = '1' then
-                -- Disable the display when C4 = R6, irrespective of C9
-                v_display <= '0';
-                -- Increment field counter
-                field_counter <= field_counter + 1;
-            end if;
-        end if;
-    end process;
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        v_display <= 1'b0;
+        field_counter <= {1'b0, field_counter[field_counter'length - 2:1]};
+        odd_field <= 1'b0;
+    end 
+    else begin
+        if (first_scanline == 1'b1) begin
+            v_display <= 1'b1;
+            odd_field <= field_counter[0];
+        end 
+        else if ((row_counter == r06_v_displayed) && (v_display == 1'b1)) begin
+            v_display <= 1'b0;
+            field_counter <= field_counter + 1;
+        end
+    end
+end
 
     // ===========================================================================
-    
     // End of frame logic
-    
     // ===========================================================================
 
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            sol <= (others => '0');
-            in_adj <= '0';
-            adj_in_progress <= '0';
-            eom_latched <= '0';
-            eof_latched <= '0';
-            first_scanline <= '0';
-            extra_scanline <= '0';
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        sol <= 3'b0;
+        in_adj <= 1'b0;
+        adj_in_progress <= 1'b0;
+        eom_latched <= 1'b0;
+        eof_latched <= 1'b0;
+        first_scanline <= 1'b0;
+        extra_scanline <= 1'b0;
+    end 
+    else begin
+        if (CLKEN == 1'b1) begin
 /*
                 -- TODO: Confirm extactly when end of main (EOM) is latched
                 --
@@ -575,201 +556,205 @@ assign VSYNC = vs; // External VSYNC driven directly from internal signal
                 -- Looking at the beebjit code, it seems latching end-of-main, vertical-adjust and
                 -- end-of-frame happen over three successive cycles.
 */
-                -- Sol(0) is asserted during C0=0
-                -- Sol(1) is asserted during C0=1
-                -- Sol(2) is asserted during C0=2
-                sol <= sol(sol'length - 2 downto 0) & r00_h_total_hit;
+            // Sol(0) is asserted during C0=0
+            // Sol(1) is asserted during C0=1
+            // Sol(2) is asserted during C0=2
+            sol <= {sol[sol'length - 2:0], r00_h_total_hit};
 
-                -- One clock after the start of the line (after C0=0), latch end-of-main
-                if new_frame = '1' then
-                    eom_latched <= '0';
-                elsif sol(0) = '1' and max_scanline_hit = '1' and row_counter = r04_v_total then
-                    eom_latched <= '1';
-                end if;
+            // One clock after the start of the line (after C0=0), latch end-of-main
+            if (new_frame == 1'b1) 
+                eom_latched <= 1'b0;
+            else if (sol[0] == 1'b1 && max_scanline_hit == 1'b1 && row_counter == r04_v_total) 
+                eom_latched <= 1'b1;
+            else 
+                eom_latched <= eom_latched;
 
-                -- Two clocks after the start of the line (after C0=1), detect if vertical-adjust needed
-                if new_frame = '1' then
-                    in_adj <= '0';
-                elsif sol(1) = '1' and eom_latched = '1' then
-                    if line_counter_next = adj_scanline then
-                        in_adj <= '0';
-                    else
-                        in_adj <= '1';
-                    end if;
-                end if;
+            // Two clocks after the start of the line (after C0=1), detect if vertical-adjust needed
+            if (new_frame == 1'b1) 
+                in_adj <= 1'b0;
+            else if (sol[1] == 1'b1 && eom_latched == 1'b1) begin
+                if (line_counter_next == adj_scanline) 
+                    in_adj <= 1'b0;
+                else 
+                    in_adj <= 1'b1;
+            end 
+            else 
+                in_adj <= in_adj;
 
-                -- Three clocks after the start of the line (after C0=2), latch end-of-frame
-                if new_frame = '1' then
-                    eof_latched <= '0';
-                elsif sol(2) = '1' and eom_latched = '1' and in_adj = '0' then
-                    eof_latched <= '1';
-                end if;
+            // Three clocks after the start of the line (after C0=2), latch end-of-frame
+            if (new_frame == 1'b1) 
+                eof_latched <= 1'b0;
+            else if (sol[2] == 1'b1 && eom_latched == 1'b1 && in_adj == 1'b0) 
+                eof_latched <= 1'b1;
+            else 
+                eof_latched <= eof_latched;
 
-                -- adj_in_progress is a delayed version of in_adj that's used the line counter to
-                -- force the increment to 1, and to disable max_scanline_hit
-                if new_frame = '1' then
-                    adj_in_progress <= '0';
-                elsif r00_h_total_hit = '1' and eom_latched = '1' and in_adj = '1' then
-                    adj_in_progress <= '1';
-                end if;
+            // adj_in_progress is a delayed version of in_adj that's used the line counter to
+            // force the increment to 1, and to disable max_scanline_hit
+            if (new_frame == 1'b1) 
+                adj_in_progress <= 1'b0;
+            else if (r00_h_total_hit == 1'b1 && eom_latched == 1'b1 && in_adj == 1'b1) 
+                adj_in_progress <= 1'b1;
+            else 
+                adj_in_progress <= adj_in_progress;
 
-                -- First_scanline is active for the first scanline of the field; this affects only the R06 hit logic
-                if new_frame = '1' then
-                    first_scanline <= '1';
-                elsif r00_h_total_hit = '1' then
-                    first_scanline <= '0';
-                end if;
+            // First_scanline is active for the first scanline of the field; this affects only the R06 hit logic
+            if (new_frame == 1'b1) 
+                first_scanline <= 1'b1;
+            else if (r00_h_total_hit == 1'b1) 
+                first_scanline <= 1'b0;
+            else 
+                first_scanline <= first_scanline;
 
-                -- Extra_scanline records that an extra scanline was added to the field
-                if r00_h_total_hit = '1' and eof_latched = '1' and r08_interlace(0) = '1' and field_counter(0) = '1' and extra_scanline = '0' then
-                    extra_scanline <= '1';
-                elsif r00_h_total_hit = '1' then
-                    extra_scanline <= '0';
-                end if;
-
-            end if;
-        end if;
-    end process;
+            // Extra_scanline records that an extra scanline was added to the field
+            if (r00_h_total_hit == 1'b1 && eof_latched == 1'b1 && r08_interlace[0] == 1'b1 && field_counter[0] == 1'b1 && extra_scanline == 1'b0) 
+                extra_scanline <= 1'b1;
+            else if (r00_h_total_hit == 1'b1) 
+                extra_scanline <= 1'b0;
+            else 
+                extra_scanline <= extra_scanline;
+        end
+    end
+end
 
     // ===========================================================================
-    
     // Memory Address Generation
-    
     // ===========================================================================
 
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            ma_row <= (others => '0');
-            ma_i <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                if new_frame = '1' then
-                    -- At start of frame the row start address is loaded from r12/13
-                    ma_row <= r12_start_addr_h & r13_start_addr_l;
-                elsif h_counter = r01_h_displayed and max_scanline_hit = '1' then
-                    -- At the end of the row, the row start address loaded with the address of the next row
-                    ma_row <= ma_i;
-                end if;
-                if new_frame = '1' then
-                    -- At start of frame the memory address is loaded from r12/13
-                    ma_i <= r12_start_addr_h & r13_start_addr_l;
-                elsif r00_h_total_hit = '1' then
-                    -- At start of each line the memory addess is reset back to the row start address
-                    ma_i <= ma_row;
-                else
-                    -- During the line the memory address is incremented
-                    ma_i <= ma_i + 1;
-                end if;
-            end if;
-        end if;
-    end process;
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        ma_row <= 14'b0;
+        ma_i <= 14'b0;
+    end 
+    else begin
+        if (CLKEN == 1'b1) begin
+            if (new_frame == 1'b1) 
+                // At start of frame the row start address is loaded from r12/13                
+                ma_row <= {r12_start_addr_h, r13_start_addr_l};
+            else if ((h_counter == r01_h_displayed) && (max_scanline_hit == 1'b1)) 
+                // At the end of the row, the row start address loaded with the address of the next row                
+                ma_row <= ma_i;
+            
+            if (new_frame == 1'b1) 
+                // At start of frame the memory address is loaded from r12/13                
+                ma_i <= {r12_start_addr_h, r13_start_addr_l};
+            else if (r00_h_total_hit == 1'b1) 
+                // At start of each line the memory addess is reset back to the row start address                
+                ma_i <= ma_row;
+            else 
+                // During the line the memory address is incremented                
+                ma_i <= ma_i + 1;
+        end
+    end
+end
 
-    -- Address generation
-    process(CLOCK,nRESET)
-    begin
-        if rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                -- On the Real 6845 you don't see glitches on RA0 when writing r08
-                -- so mimic this by latching the relevant r08 state once per line.
-                -- This is probably done differently on the real hardware. I suspect
-                -- the replacement of line_counter(0) with odd_field is done
-                -- upstream as part of the line counter logic, and then when comparing
-                -- to the max scanline, the LSB is masked off. I had a got at implementing
-                -- this, but it got messy.
-                if r00_h_total_hit = '1' then
-                    if r08_interlace(1 downto 0) = "11" and VGA = '0' then
-                        interlaced_video <= '1';
-                    else
-                        interlaced_video <= '0';
-                    end if;
-                end if;
-            end if;
-        end if;
-    end process;
+    // Address generation
+always @(posedge CLOCK) begin
+    if (CLKEN == 1'b1) begin
+        // On the Real 6845 you don't see glitches on RA0 when writing r08
+        // so mimic this by latching the relevant r08 state once per line.
+        // This is probably done differently on the real hardware. I suspect
+        // the replacement of line_counter(0) with odd_field is done
+        // upstream as part of the line counter logic, and then when comparing
+        // to the max scanline, the LSB is masked off. I had a got at implementing
+        // this, but it got messy.
+        if (r00_h_total_hit == 1'b1) begin
+            if ((r08_interlace[1:0] == 2'b11) && (VGA == 1'b0)) 
+                interlaced_video <= 1'b1;
+            else
+                interlaced_video <= 1'b0;
+        end
+    end
+end    
 
-    RA <= std_logic_vector(line_counter(4 downto 1)) & odd_field when interlaced_video = '1' else
-          std_logic_vector(line_counter);
+assign RA = (interlaced_video == 1'b1) ? {line_counter[4:1], odd_field} : std_logic_vector(line_counter);
 
-    MA <= std_logic_vector(ma_i);
+assign MA = std_logic_vector(ma_i);
 
 
     // ===========================================================================
-    
     // Light pen
-    
     // ===========================================================================
 
-    process(CLOCK,nRESET)
-    begin
-        if nRESET = '0' then
-            lpstb_sync <= (others => '0');
-            r16_light_pen_h <= (others => '0');
-            r17_light_pen_l <= (others => '0');
-        elsif rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                -- Synchronise light-pen strobe input
-                lpstb_sync <= LPSTB & lpstb_sync(lpstb_sync'length - 1 downto 1);
-                -- Capture memory address on rising edge
-                if lpstb_sync(1) = '1' and lpstb_sync(0) = '0' then
-                    r16_light_pen_h <= ma_i(13 downto 8);
-                    r17_light_pen_l <= ma_i(7 downto 0);
-                end if;
-            end if;
-        end if;
-    end process;
+always @(posedge CLOCK or negedge nRESET) begin
+    if (nRESET == 1'b0) begin
+        lpstb_sync <= {1'b0, lpstb_sync[lpstb_sync'length - 2:1]};
+        r16_light_pen_h <= 6'b0;
+        r17_light_pen_l <= 8'b0;
+    end 
+    else begin
+        if (CLKEN == 1'b1) begin
+            lpstb_sync <= {LPSTB, lpstb_sync[lpstb_sync'length - 2:1]};
+            if ((lpstb_sync[1] == 1'b1) && (lpstb_sync[0] == 1'b0)) begin
+                r16_light_pen_h <= ma_i[13:8];
+                r17_light_pen_l <= ma_i[7:0];
+            end
+        end
+    end
+end
 
     // ===========================================================================
-    
     // Cursor control
-    
     // ===========================================================================
 
-    cursor0 <= '0' when h_display = '0' or v_display = '0' or ma_i /= r14_cursor_h & r15_cursor_l or line_counter < r10_cursor_start or line_counter > r11_cursor_end else
-               field_counter(4) when r10_cursor_mode = "11" else
-               field_counter(3) when r10_cursor_mode = "10" else
-               '1'              when r10_cursor_mode = "00" else
-               '0';
+always @* begin
+    if ((h_display == 1'b0) || 
+        (v_display == 1'b0) || 
+        (ma_i != {r14_cursor_h, r15_cursor_l}) || 
+        (line_counter < r10_cursor_start) || 
+        (line_counter > r11_cursor_end)) 
+        cursor0 = 1'b0;
+    else if (r10_cursor_mode == 2'b11) 
+        cursor0 = field_counter[4];
+    else if (r10_cursor_mode == 2'b10) 
+        cursor0 = field_counter[3];
+    else if (r10_cursor_mode == 2'b00) 
+        cursor0 = 1'b1;
+    else 
+        cursor0 = 1'b0;
+    
+end
 
     // ===========================================================================
-    
     // Skew (of cursor and display enable)
-    
     // ===========================================================================
 
-    process(CLOCK,nRESET)
-    begin
-        if rising_edge(CLOCK) then
-            if CLKEN = '1' then
-                de1     <= de0;
-                de2     <= de1;
-                cursor1 <= cursor0;
-                cursor2 <= cursor1;
-            end if;
-        end if;
-    end process;
+always @(posedge CLOCK) begin
+    if (CLKEN == 1'b1) begin
+        de1 <= de0;
+        de2 <= de1;
+        cursor1 <= cursor0;
+        cursor2 <= cursor1;
+    end
+end
 
-    de0 <= '1' when h_display = '1' and v_display = '1' and r08_interlace(5 downto 4) /= "11" else '0';
+assign de0 = (h_display && v_display && (r08_interlace[5:4] != 2'b11)) ? 1'b1 : 1'b0;
 
-    DE <= de1 when r08_interlace(5 downto 4) = "01" else
-          de2 when r08_interlace(5 downto 4) = "10" else
-          de0;
+always @* begin
+    case (r08_interlace[5:4])
+        2'b01: DE = de1;
+        2'b10: DE = de2;
+        default: DE = de0;
+    endcase
+end
 
 
-    CURSOR <= cursor0 when r08_interlace(7 downto 6) = "00" else
-              cursor1 when r08_interlace(7 downto 6) = "01" else
-              cursor2 when r08_interlace(7 downto 6) = "10" else
-              '0';
+always @* begin
+    case (r08_interlace[7:6])
+        2'b00: CURSOR = cursor0;
+        2'b01: CURSOR = cursor1;
+        2'b10: CURSOR = cursor2;
+        default: CURSOR = 1'b0;
+    endcase
+end
 
     // ===========================================================================
-    
     // Test
-    
     // ===========================================================================
 
-    test(0) <= '1' when CLKEN_CPU = '1' and ENABLE = '1' and R_nW = '0' else '0';
-    test(1) <= '1' when                     ENABLE = '1' and R_nW = '0' else '0';
-    test(2) <= '1' when CLKEN_CPU = '1' and ENABLE = '1' and R_nW = '0' and addr_reg = "00000" else '0';
-    test(3) <= '1' when                     ENABLE = '1' and R_nW = '0' and addr_reg = "00000" else '0';
+assign test[0] = (CLKEN_CPU && ENABLE && !R_nW) ? 1'b1 : 1'b0;
+assign test[1] = (ENABLE && !R_nW) ? 1'b1 : 1'b0;
+assign test[2] = (CLKEN_CPU && ENABLE && !R_nW && (addr_reg == 5'b00000)) ? 1'b1 : 1'b0;
+assign test[3] = (ENABLE && !R_nW && (addr_reg == 5'b00000)) ? 1'b1 : 1'b0;
 
 endmodule
