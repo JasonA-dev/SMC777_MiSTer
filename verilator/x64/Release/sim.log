@@ -1,5 +1,3 @@
-﻿  Vtop__1__Slow.cpp
-  Vtop__1.cpp
-  Generating Code...
-     Creating library C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.lib and object C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.exp
+﻿  sim_main.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   sim.vcxproj -> C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.exe

@@ -68,6 +68,12 @@ smc777 smc777
 	
 	.ce_pix(ce_pix),
 
+	.ioctl_download(ioctl_download),
+	.ioctl_index(ioctl_index),
+	.ioctl_wr(ioctl_wr),
+	.ioctl_addr(ioctl_addr),
+	.ioctl_dout(ioctl_dout),
+
 	.HBlank(HBlank),
 	.HSync(HSync),
 	.VBlank(VBlank),

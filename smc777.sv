@@ -205,32 +205,15 @@ assign VIDEO_ARY = (!ar) ? 12'd3 : 12'd0;
 `include "build_id.v" 
 localparam CONF_STR = {
 	"SMC777;;",
+	"-;",	
+	"F0,rom,Load Bios;",
+	"F1,bin,Load BIN;",
 	"-;",
-	"O[122:121],Aspect ratio,Original,Full Screen,[ARC1],[ARC2];",
-	"O[2],TV Mode,NTSC,PAL;",
-	"O[4:3],Noise,White,Red,Green,Blue;",
+//	"O[122:121],Aspect ratio,Original,Full Screen,[ARC1],[ARC2];",
+//	"O[2],TV Mode,NTSC,PAL;",
 	"-;",
-	"P1,Test Page 1;",
-	"P1-;",
-	"P1-, -= Options in page 1 =-;",
-	"P1-;",
-	"P1O[5],Option 1-1,Off,On;",
-	"d0P1F1,BIN;",
-	"H0P1O[10],Option 1-2,Off,On;",
-	"-;",
-	"P2,Test Page 2;",
-	"P2-;",
-	"P2-, -= Options in page 2 =-;",
-	"P2-;",
-	"P2S0,DSK;",
-	"P2O[7:6],Option 2,1,2,3,4;",
-	"-;",
-	"-;",
-	"T[0],Reset;",
+//	"T[0],Reset;",
 	"R[0],Reset and close OSD;",
-	"v,0;", // [optional] config version 0-99. 
-	        // If CONF_STR options are changed in incompatible way, then change version number too,
-			  // so all options will get default values on first start.
 	"V,v",`BUILD_DATE 
 };
 
@@ -238,6 +221,12 @@ wire forced_scandoubler;
 wire   [1:0] buttons;
 wire [127:0] status;
 wire  [10:0] ps2_key;
+
+wire        ioctl_download;
+wire  [7:0] ioctl_index;
+wire        ioctl_wr;
+wire [24:0] ioctl_addr;
+wire  [7:0] ioctl_data;
 
 hps_io #(.CONF_STR(CONF_STR)) hps_io
 (
@@ -247,6 +236,13 @@ hps_io #(.CONF_STR(CONF_STR)) hps_io
 	.gamma_bus(),
 
 	.forced_scandoubler(forced_scandoubler),
+
+	//ioctl
+	.ioctl_download(ioctl_download),
+	.ioctl_index(ioctl_index),
+	.ioctl_wr(ioctl_wr),
+	.ioctl_addr(ioctl_addr),
+	.ioctl_dout(ioctl_data),
 
 	.buttons(buttons),
 	.status(status),
@@ -284,6 +280,12 @@ smc777 smc777
 	.pal(status[2]),
 	.scandouble(forced_scandoubler),
 
+	.ioctl_download(ioctl_download),
+	.ioctl_index(ioctl_index),
+	.ioctl_wr(ioctl_wr),
+	.ioctl_addr(ioctl_addr),
+	.ioctl_dout(ioctl_data),
+	
 	.ce_pix(ce_pix),
 
 	.HBlank(HBlank),

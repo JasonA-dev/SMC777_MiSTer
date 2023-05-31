@@ -320,6 +320,10 @@ int main(int argc, char** argv, char** env) {
 		//mem_edit.DrawContents(&top->top__DOT__rcastudio__DOT__Rom_StudioII__DOT__d, 2048, 0);
 		//ImGui::End();
 
+		ImGui::Begin("BIOS ROM");
+		mem_edit.DrawContents(&top->top__DOT__smc777__DOT__dpram__DOT__mem, 16384, 0);
+		ImGui::End();
+
 		// Debug Keypad 1
 //		ImGui::Begin("Keypad 1");
 //		ImGui::Text("btnKP1: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1);	
@@ -335,7 +339,15 @@ int main(int argc, char** argv, char** env) {
 //		ImGui::Spacing();														
 //		ImGui::End();
 
-		
+
+		// Debug Z80 cpu
+		ImGui::Begin("Z80 CPU");
+		ImGui::Text("reset_n:  0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__reset_n);	
+		ImGui::Text("rd_n:     0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__rd_n);			
+		ImGui::Text("PC:       0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__PC);		
+		ImGui::Spacing();		
+		ImGui::End();
+
 		// Trace/VCD window
 		ImGui::Begin(windowTitle_Trace);
 		ImGui::SetWindowPos(windowTitle_Trace, ImVec2(0, 870), ImGuiCond_Once);

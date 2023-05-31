@@ -7,6 +7,12 @@ module smc777
 	input         pal,
 	input         scandouble,
 
+	input wire         ioctl_download,
+	input wire   [7:0] ioctl_index,
+	input wire         ioctl_wr,
+	input       [24:0] ioctl_addr,
+	input        [7:0] ioctl_dout,
+
 	output reg    ce_pix,
 
 	output reg    HBlank,
@@ -77,7 +83,7 @@ always @(posedge clk) begin
 end
 
 tv80n tv80n(
-  .reset_n(reset),	// I
+  .reset_n(~reset),	// I
   .clk(clk),		// I
   .wait_n(1'b1),	// I
   .int_n(1'b1),		// I
@@ -96,13 +102,24 @@ tv80n tv80n(
   .dout()	// [7:0] O
 );
 
+reg          ram_cs;
+reg          ram_rd; // RAM read enable
+reg          ram_wr; // RAM write enable
+reg   [7:0]  ram_d;  // RAM write data
+reg  [15:0]  ram_a;  // RAM address
+reg   [7:0]  ram_q;  // RAM read data
+dpram #(8, 14) dpram
+(
+	.clock(clk),
+	.address_a(ioctl_download ? ioctl_addr[13:0] : ram_a[13:0]),
+	.wren_a(ioctl_wr | cpu_wr),
+	.data_a(ioctl_download ? ioctl_dout : ram_d),
+	.q_a(ram_q),
 
-/*
-reg  [7:0] cos_out;
-wire [5:0] cos_g = cos_out[7:3]+6'd32;
-cos cos(vvc + {vc>>scandouble, 2'b00}, cos_out);
-
-assign video = (cos_g >= rnd_c) ? {cos_g - rnd_c, 2'b00} : 8'd0;
-*/
+	.wren_b(1'b0),
+	.address_b(),
+	.data_b(),
+	.q_b()
+);
 
 endmodule

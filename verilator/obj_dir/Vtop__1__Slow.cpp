@@ -7,10 +7,22 @@
 
 #include "verilated_dpi.h"
 
-void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_settle__TOP__2\n"); );
+void Vtop::_settle__TOP__3(Vtop__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_settle__TOP__3\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__DDD 
+        = (7U & ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IR) 
+                 >> 3U));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__SSS 
+        = (7U & (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IR));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__DPAIR 
+        = (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IR) 
+                 >> 4U));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycles_d = 1U;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstates 
+        = ((1U & (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle))
+            ? 4U : 3U);
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IncDec_16 = 0U;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__Set_BusB_To = 0U;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__Set_BusA_To = 0U;
@@ -3605,8 +3617,62 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
         vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__Set_BusB_To 
             = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__SSS;
     }
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__reset_n 
-        = vlTOPp->top__DOT__smc777__DOT__reset;
+    vlTOPp->top__DOT__ioctl_wait = vlTOPp->ioctl_wait;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__rfsh_n 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__rfsh_n;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__wait_n 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__wait_n;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__int_n 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__int_n;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__nmi_n 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__nmi_n;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__busrq_n 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__busrq_n;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__dinst 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__di;
+    vlTOPp->top__DOT__key_strobe = (1U & ((IData)(vlTOPp->top__DOT__old_keystb) 
+                                          ^ ((IData)(vlTOPp->ps2_key) 
+                                             >> 0xaU)));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__B 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+        [0U];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__D 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+        [1U];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__H 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+        [2U];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrC];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__C 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+        [0U];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__E 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+        [1U];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+        [2U];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IX 
+        = ((vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+            [3U] << 8U) | vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+           [3U]);
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IY 
+        = ((vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+            [7U] << 8U) | vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+           [7U]);
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrC];
+    vlTOPp->top__DOT__smc777__DOT__ce_pix = vlTOPp->top__DOT__ce_pix;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__cen 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__cen;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__ClkEn 
+        = ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__cen) 
+           & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__BusAck)));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__reset_n 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__reset_n;
     vlTOPp->top__DOT__AUDIO_L = vlTOPp->AUDIO_L;
     vlTOPp->top__DOT__AUDIO_L = vlTOPp->AUDIO_L;
     vlTOPp->AUDIO_R = vlTOPp->AUDIO_L;
@@ -3626,7 +3692,21 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
         vlTOPp->top__DOT__VGA_G = 0U;
         vlTOPp->top__DOT__VGA_B = 0U;
     }
+    vlTOPp->top__DOT__smc777__DOT__ioctl_download = vlTOPp->top__DOT__ioctl_download;
+    vlTOPp->top__DOT__smc777__DOT__ioctl_wr = vlTOPp->top__DOT__ioctl_wr;
+    vlTOPp->top__DOT__smc777__DOT__ioctl_addr = vlTOPp->top__DOT__ioctl_addr;
+    vlTOPp->top__DOT__smc777__DOT__ioctl_dout = vlTOPp->top__DOT__ioctl_dout;
+    vlTOPp->top__DOT__smc777__DOT__ioctl_index = vlTOPp->top__DOT__ioctl_index;
     vlTOPp->top__DOT__smc777__DOT__clk = vlTOPp->top__DOT__clk_48;
+    vlTOPp->top__DOT__smc777__DOT__dpram__DOT__wren_a 
+        = vlTOPp->top__DOT__smc777__DOT____Vcellinp__dpram__wren_a;
+    vlTOPp->top__DOT__smc777__DOT__dpram__DOT__data_a 
+        = vlTOPp->top__DOT__smc777__DOT____Vcellinp__dpram__data_a;
+    vlTOPp->top__DOT__smc777__DOT__dpram__DOT__address_a 
+        = vlTOPp->top__DOT__smc777__DOT____Vcellinp__dpram__address_a;
+    vlTOPp->top__DOT__smc777__DOT__reset = vlTOPp->top__DOT__reset;
+    vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
+        = (1U & (~ (IData)(vlTOPp->top__DOT__reset)));
     vlTOPp->top__DOT__VGA_VS = vlTOPp->VGA_VS;
     vlTOPp->top__DOT__VGA_HS = vlTOPp->VGA_HS;
     vlTOPp->top__DOT__VGA_VB = vlTOPp->VGA_VB;
@@ -4297,8 +4377,15 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
                                                    | ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__Alternate) 
                                                       << 2U))
                                                 : (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrA_r)))));
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__reset_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__reset_n;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOCH 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOCL 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusC 
+        = (((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH) 
+            << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__CEN 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__ClkEn;
     vlTOPp->top__DOT__AUDIO_R = vlTOPp->AUDIO_R;
     vlTOPp->top__DOT__AUDIO_R = vlTOPp->AUDIO_R;
     vlTOPp->VGA_R = vlTOPp->top__DOT__VGA_R;
@@ -4307,6 +4394,8 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
     vlTOPp->VGA_G = vlTOPp->top__DOT__VGA_G;
     vlTOPp->VGA_B = vlTOPp->top__DOT__VGA_B;
     vlTOPp->VGA_B = vlTOPp->top__DOT__VGA_B;
+    vlTOPp->top__DOT__smc777__DOT__dpram__DOT__clock 
+        = vlTOPp->top__DOT__smc777__DOT__clk;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__clk 
         = vlTOPp->top__DOT__smc777__DOT__clk;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__F_Out 
@@ -4321,6 +4410,12 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
                 : (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__DI_Reg)));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__AddrB 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrB;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBH 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
+        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrB];
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
+        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrB];
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__NoRead 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__no_read;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__Write 
@@ -4373,160 +4468,12 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegWEL;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__AddrA 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrA;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__clk 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__clk;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__clk 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__clk;
-}
-
-void Vtop::_initial__TOP__3(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_initial__TOP__3\n"); );
-    Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->ioctl_wait = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__rfsh_n = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__wait_n = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__int_n = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__nmi_n = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__busrq_n = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__di = 0U;
-    vlTOPp->top__DOT__old_keystb = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[0U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[0U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[1U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[1U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 2U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[2U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[2U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 3U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[3U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[3U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 4U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[4U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[4U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 5U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[5U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[5U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 6U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[6U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[6U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 7U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH[7U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL[7U] = 0U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__aux = 8U;
-    vlTOPp->top__DOT__ce_pix = 1U;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__cen = 1U;
-    vlTOPp->top__DOT__ioctl_wait = vlTOPp->ioctl_wait;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__rfsh_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__rfsh_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__wait_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__wait_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__int_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__int_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__nmi_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__nmi_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__busrq_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__busrq_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__dinst 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__di;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__cen 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__cen;
-}
-
-void Vtop::_settle__TOP__8(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_settle__TOP__8\n"); );
-    Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->top__DOT__ioctl_wait = vlTOPp->ioctl_wait;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__rfsh_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__rfsh_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__wait_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__wait_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__int_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__int_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__nmi_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__nmi_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__busrq_n 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__busrq_n;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__dinst 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__di;
-    vlTOPp->top__DOT__key_strobe = (1U & ((IData)(vlTOPp->top__DOT__old_keystb) 
-                                          ^ ((IData)(vlTOPp->ps2_key) 
-                                             >> 0xaU)));
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__B 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-        [0U];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__D 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-        [1U];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__H 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-        [2U];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrC];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBH 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrB];
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAH 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
         [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrA];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__C 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-        [0U];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__E 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-        [1U];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-        [2U];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IX 
-        = ((vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-            [3U] << 8U) | vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-           [3U]);
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IY 
-        = ((vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsH
-            [7U] << 8U) | vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-           [7U]);
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrC];
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
-        [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrB];
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAL 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__RegsL
         [vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrA];
-    vlTOPp->top__DOT__smc777__DOT__ce_pix = vlTOPp->top__DOT__ce_pix;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__cen 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__cen;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__ClkEn 
-        = ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__cen) 
-           & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__BusAck)));
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOCH 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOBH 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBH;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOAH 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAH;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOCL 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusC 
-        = (((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCH) 
-            << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOCL));
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOBL 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusB 
-        = (((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBH) 
-            << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL));
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOAL 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAL;
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusA 
-        = (((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAH) 
-            << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAL));
-    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__CEN 
-        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__ClkEn;
     if ((8U & (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate))) {
         vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP16_A 
             = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusC;
@@ -4544,6 +4491,24 @@ void Vtop::_settle__TOP__8(Vtop__Syms* __restrict vlSymsp) {
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP16 
         = (0xffffU & ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP16_A) 
                       + (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP16_B)));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__clk 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__clk;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOBH 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBH;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOBL 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusB 
+        = (((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBH) 
+            << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOBL));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOAH 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAH;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__DOAL 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAL;
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegBusA 
+        = (((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAH) 
+            << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT____Vcellout__i_reg__DOAL));
+    vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__clk 
+        = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__clk;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__ID16_B 
         = ((8U & (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IncDec_16))
             ? 0xffffU : 1U);
@@ -4603,10 +4568,10 @@ void Vtop::_eval_initial(Vtop__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_eval_initial\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_initial__TOP__3(vlSymsp);
+    vlTOPp->_initial__TOP__1(vlSymsp);
     vlTOPp->__Vclklast__TOP__clk_48 = vlTOPp->clk_48;
-    vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__reset 
-        = vlTOPp->__VinpClk__TOP__top__DOT__reset;
+    vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
+        = vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
 }
 
 void Vtop::final() {
@@ -4620,9 +4585,8 @@ void Vtop::_eval_settle(Vtop__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_eval_settle\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_settle__TOP__1(vlSymsp);
     vlTOPp->_settle__TOP__2(vlSymsp);
-    vlTOPp->_settle__TOP__8(vlSymsp);
+    vlTOPp->_settle__TOP__3(vlSymsp);
 }
 
 void Vtop::_ctor_var_reset(Vtop* self) {
@@ -4687,6 +4651,11 @@ void Vtop::_ctor_var_reset(Vtop* self) {
     self->top__DOT__smc777__DOT__reset = 0;
     self->top__DOT__smc777__DOT__pal = 0;
     self->top__DOT__smc777__DOT__scandouble = 0;
+    self->top__DOT__smc777__DOT__ioctl_download = 0;
+    self->top__DOT__smc777__DOT__ioctl_index = 0;
+    self->top__DOT__smc777__DOT__ioctl_wr = 0;
+    self->top__DOT__smc777__DOT__ioctl_addr = 0;
+    self->top__DOT__smc777__DOT__ioctl_dout = 0;
     self->top__DOT__smc777__DOT__ce_pix = 0;
     self->top__DOT__smc777__DOT__HBlank = 0;
     self->top__DOT__smc777__DOT__HSync = 0;
@@ -4699,6 +4668,17 @@ void Vtop::_ctor_var_reset(Vtop* self) {
     self->top__DOT__smc777__DOT__rnd_reg = 0;
     self->top__DOT__smc777__DOT__rnd_c = 0;
     self->top__DOT__smc777__DOT__rnd = 0;
+    self->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n = 0;
+    self->top__DOT__smc777__DOT__ram_cs = 0;
+    self->top__DOT__smc777__DOT__ram_rd = 0;
+    self->top__DOT__smc777__DOT__ram_wr = 0;
+    self->top__DOT__smc777__DOT__ram_d = 0;
+    self->top__DOT__smc777__DOT__ram_a = 0;
+    self->top__DOT__smc777__DOT__ram_q = 0;
+    self->top__DOT__smc777__DOT____Vcellinp__dpram__data_a = 0;
+    self->top__DOT__smc777__DOT____Vcellinp__dpram__wren_a = 0;
+    self->top__DOT__smc777__DOT____Vcellinp__dpram__address_a = 0;
+    self->top__DOT__smc777__DOT__cpu_wr = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__reset_n = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__clk = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__wait_n = 0;
@@ -4976,6 +4956,20 @@ void Vtop::_ctor_var_reset(Vtop* self) {
     self->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IX = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IY = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__clock = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__ram_cs = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__wren_a = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__address_a = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__data_a = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__q_a = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__ram_cs_b = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__wren_b = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__address_b = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__data_b = 0;
+    self->top__DOT__smc777__DOT__dpram__DOT__q_b = 0;
+    for (int __Vi0=0; __Vi0<16384; ++__Vi0) {
+        self->top__DOT__smc777__DOT__dpram__DOT__mem[__Vi0] = 0;
+    }
     self->__Vfunc_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__is_cc_true__2__Vfuncout = 0;
     self->__Vfunc_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__is_cc_true__2__FF = 0;
     self->__Vfunc_top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__is_cc_true__2__cc = 0;
@@ -5084,8 +5078,8 @@ void Vtop::_ctor_var_reset(Vtop* self) {
     self->__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP = 0;
     self->__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate = 0;
     self->__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle = 0;
-    self->__VinpClk__TOP__top__DOT__reset = 0;
-    self->__Vchglast__TOP__top__DOT__reset = 0;
+    self->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n = 0;
+    self->__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n = 0;
     for (int __Vi0=0; __Vi0<1; ++__Vi0) {
         self->__Vm_traceActivity[__Vi0] = 0;
     }

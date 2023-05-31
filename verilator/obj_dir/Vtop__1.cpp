@@ -7,8 +7,8 @@
 
 #include "verilated_dpi.h"
 
-VL_INLINE_OPT void Vtop::_sequent__TOP__12(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_sequent__TOP__12\n"); );
+VL_INLINE_OPT void Vtop::_sequent__TOP__11(Vtop__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_sequent__TOP__11\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     if ((0x20U & (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle))) {
@@ -414,11 +414,12 @@ VL_INLINE_OPT void Vtop::_sequent__TOP__12(Vtop__Syms* __restrict vlSymsp) {
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegDIL;
 }
 
-VL_INLINE_OPT void Vtop::_combo__TOP__13(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_combo__TOP__13\n"); );
+VL_INLINE_OPT void Vtop::_combo__TOP__12(Vtop__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_combo__TOP__12\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->top__DOT__reset = vlTOPp->ioctl_download;
+    vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
+        = (1U & (~ (IData)(vlTOPp->top__DOT__reset)));
 }
 
 void Vtop::_eval(Vtop__Syms* __restrict vlSymsp) {
@@ -433,26 +434,27 @@ void Vtop::_eval(Vtop__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__6(vlSymsp);
     }
     if ((((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48))) 
-         | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__reset)) 
-            & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__reset)))) {
+         | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)) 
+            & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)))) {
         vlTOPp->_sequent__TOP__7(vlSymsp);
     }
-    vlTOPp->_combo__TOP__9(vlSymsp);
+    vlTOPp->_combo__TOP__8(vlSymsp);
     if (((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48)))) {
-        vlTOPp->_sequent__TOP__10(vlSymsp);
+        vlTOPp->_sequent__TOP__9(vlSymsp);
     }
     if ((((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48))) 
-         | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__reset)) 
-            & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__reset)))) {
+         | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)) 
+            & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)))) {
+        vlTOPp->_sequent__TOP__10(vlSymsp);
         vlTOPp->_sequent__TOP__11(vlSymsp);
-        vlTOPp->_sequent__TOP__12(vlSymsp);
     }
-    vlTOPp->_combo__TOP__13(vlSymsp);
+    vlTOPp->_combo__TOP__12(vlSymsp);
     // Final
     vlTOPp->__Vclklast__TOP__clk_48 = vlTOPp->clk_48;
-    vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__reset 
-        = vlTOPp->__VinpClk__TOP__top__DOT__reset;
-    vlTOPp->__VinpClk__TOP__top__DOT__reset = vlTOPp->top__DOT__reset;
+    vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
+        = vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
+    vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
+        = vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
 }
 
 VL_INLINE_OPT QData Vtop::_change_request(Vtop__Syms* __restrict vlSymsp) {
@@ -468,10 +470,11 @@ VL_INLINE_OPT QData Vtop::_change_request_1(Vtop__Syms* __restrict vlSymsp) {
     // Body
     // Change detection
     QData __req = false;  // Logically a bool
-    __req |= ((vlTOPp->top__DOT__reset ^ vlTOPp->__Vchglast__TOP__top__DOT__reset));
-    VL_DEBUG_IF( if(__req && ((vlTOPp->top__DOT__reset ^ vlTOPp->__Vchglast__TOP__top__DOT__reset))) VL_DBG_MSGF("        CHANGE: sim.v:57: top.reset\n"); );
+    __req |= ((vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n ^ vlTOPp->__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n));
+    VL_DEBUG_IF( if(__req && ((vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n ^ vlTOPp->__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n))) VL_DBG_MSGF("        CHANGE: ../rtl/tv80/tv80n.v:40: top.smc777.__Vcellinp__tv80n__reset_n\n"); );
     // Final
-    vlTOPp->__Vchglast__TOP__top__DOT__reset = vlTOPp->top__DOT__reset;
+    vlTOPp->__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
+        = vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
     return __req;
 }
 
