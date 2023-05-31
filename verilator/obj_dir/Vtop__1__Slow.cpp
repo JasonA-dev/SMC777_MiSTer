@@ -3717,6 +3717,25 @@ void Vtop::_settle__TOP__3(Vtop__Syms* __restrict vlSymsp) {
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__busak_n;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__intcycle_n 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__intcycle_n;
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__VSYNC 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__vs;
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__DE 
+        = ((1U == (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                         >> 4U))) ? (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__de1)
+            : ((2U == (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                             >> 4U))) ? (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__de2)
+                : (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__de0)));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__new_frame 
+        = (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit) 
+            & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__eof_latched)) 
+           & ((((~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace)) 
+                | (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__field_counter))) 
+               | (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__extra_scanline)) 
+              | (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__VGA)));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit 
+        = (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter) 
+            == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__max_scanline)) 
+           & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__adj_in_progress)));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__SetEI 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SetEI;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__I_SCF 
@@ -4140,6 +4159,13 @@ void Vtop::_settle__TOP__3(Vtop__Syms* __restrict vlSymsp) {
             & ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate) 
                >> 3U)) ? (1U | ((IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__Alternate) 
                                 << 2U)) : (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegAddrB_r));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CURSOR 
+        = ((0U == (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                         >> 6U))) ? (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__cursor0)
+            : ((1U == (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                             >> 6U))) ? (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__cursor1)
+                : ((2U == (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                                 >> 6U))) & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__cursor2))));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__I_INRC 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__I_INRC;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__I_RETN 
@@ -4398,6 +4424,27 @@ void Vtop::_settle__TOP__3(Vtop__Syms* __restrict vlSymsp) {
         = vlTOPp->top__DOT__smc777__DOT__clk;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__clk 
         = vlTOPp->top__DOT__smc777__DOT__clk;
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__row_counter_next 
+        = ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__new_frame)
+            ? 0U : (0x7fU & (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit) 
+                              & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit))
+                              ? ((IData)(1U) + (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__row_counter))
+                              : (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__row_counter))));
+    if (vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit) {
+        vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter_next = 0U;
+    } else if ((1U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__adj_in_progress) 
+                      | (~ ((3U == (3U & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace))) 
+                            & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__VGA))))))) {
+        vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter_next 
+            = (0x1fU & ((IData)(1U) + (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter)));
+    } else {
+        vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp 
+            = (0xfU & ((IData)(1U) + ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter) 
+                                      >> 1U)));
+        vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter_next 
+            = ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp) 
+               << 1U);
+    }
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__F_Out 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__F_Out;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_alu__DOT__Q 
@@ -4569,6 +4616,10 @@ void Vtop::_eval_initial(Vtop__Syms* __restrict vlSymsp) {
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_initial__TOP__1(vlSymsp);
+    vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
+    vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     vlTOPp->__Vclklast__TOP__clk_48 = vlTOPp->clk_48;
     vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
         = vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
@@ -4956,6 +5007,86 @@ void Vtop::_ctor_var_reset(Vtop* self) {
     self->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IX = 0;
     self->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IY = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__CLOCK = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__CLKEN = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__nRESET = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__ENABLE = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__R_nW = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__RS = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__DI = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__DO = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__VSYNC = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__HSYNC = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__DE = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__CURSOR = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__LPSTB = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__VGA = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__MA = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__RA = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__test = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__addr_reg = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r01_h_displayed = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r02_h_sync_pos = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r03_v_sync_width = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r03_h_sync_width = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r04_v_total = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r05_v_total_adj = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r06_v_displayed = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r07_v_sync_pos = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r09_max_scanline_addr = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_mode = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_start = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r11_cursor_end = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r12_start_addr_h = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r13_start_addr_l = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r14_cursor_h = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r15_cursor_l = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r16_light_pen_h = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r17_light_pen_l = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__h_counter = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__h_sync_counter = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__row_counter = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__row_counter_next = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__line_counter = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__line_counter_next = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__field_counter = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__h_display = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__hs = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__v_display = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__vs = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__vs_hit = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__vs_hit_last = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__vs_even = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__vs_odd = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__odd_field = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__ma_i = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__cursor_i = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__de0 = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__de1 = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__de2 = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__cursor0 = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__cursor1 = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__cursor2 = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__interlaced_video = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__max_scanline = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__adj_scanline = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__ma_row = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__in_adj = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__adj_in_progress = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__sol = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__eom_latched = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__eof_latched = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__first_scanline = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__extra_scanline = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__new_frame = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit = 0;
+    self->top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp = 0;
     self->top__DOT__smc777__DOT__dpram__DOT__clock = 0;
     self->top__DOT__smc777__DOT__dpram__DOT__ram_cs = 0;
     self->top__DOT__smc777__DOT__dpram__DOT__wren_a = 0;
@@ -5078,6 +5209,11 @@ void Vtop::_ctor_var_reset(Vtop* self) {
     self->__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP = 0;
     self->__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate = 0;
     self->__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle = 0;
+    self->__Vdly__top__DOT__smc777__DOT__mc6845__DOT__h_counter = 0;
+    self->__Vdly__top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter = 0;
+    self->__Vdly__top__DOT__smc777__DOT__mc6845__DOT__sol = 0;
+    self->__Vdly__top__DOT__smc777__DOT__mc6845__DOT__ma_i = 0;
+    self->__Vdly__top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync = 0;
     self->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n = 0;
     self->__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n = 0;
     for (int __Vi0=0; __Vi0<1; ++__Vi0) {

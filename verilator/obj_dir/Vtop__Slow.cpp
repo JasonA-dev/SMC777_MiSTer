@@ -82,7 +82,7 @@ Vtop::~Vtop() {
 
 // Savable
 void Vtop::__Vserialize(VerilatedSerialize& os) {
-    vluint64_t __Vcheckval = 0x1f3248d99daa3a1bULL;
+    vluint64_t __Vcheckval = 0x93d87e3214fb247cULL;
     os << __Vcheckval;
     os << __VlSymsp->_vm_contextp__;
     os<<clk_48;
@@ -448,6 +448,86 @@ void Vtop::__Vserialize(VerilatedSerialize& os) {
     os<<top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L;
     os<<top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IX;
     os<<top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IY;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__CLKEN;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__nRESET;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__ENABLE;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__R_nW;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__RS;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__DI;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__DO;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__VSYNC;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__HSYNC;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__DE;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__CURSOR;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__LPSTB;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__VGA;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__MA;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__RA;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__test;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__addr_reg;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r00_h_total;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r01_h_displayed;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r02_h_sync_pos;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r03_v_sync_width;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r03_h_sync_width;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r04_v_total;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r05_v_total_adj;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r06_v_displayed;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r07_v_sync_pos;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r08_interlace;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r09_max_scanline_addr;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_mode;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_start;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r11_cursor_end;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r12_start_addr_h;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r13_start_addr_l;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r14_cursor_h;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r15_cursor_l;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r16_light_pen_h;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r17_light_pen_l;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__h_counter;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__h_sync_counter;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__row_counter;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__row_counter_next;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__line_counter;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__line_counter_next;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__field_counter;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__h_display;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__hs;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__v_display;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__vs;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__vs_hit;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__vs_hit_last;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__vs_even;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__vs_odd;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__odd_field;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__ma_i;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__cursor_i;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__de0;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__de1;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__de2;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__cursor0;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__cursor1;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__cursor2;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__interlaced_video;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__max_scanline;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__adj_scanline;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__ma_row;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__in_adj;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__adj_in_progress;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__sol;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__eom_latched;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__eof_latched;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__first_scanline;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__extra_scanline;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__new_frame;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit;
+    os<<top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp;
     os<<top__DOT__smc777__DOT__dpram__DOT__clock;
     os<<top__DOT__smc777__DOT__dpram__DOT__ram_cs;
     os<<top__DOT__smc777__DOT__dpram__DOT__wren_a;
@@ -570,7 +650,14 @@ void Vtop::__Vserialize(VerilatedSerialize& os) {
     os<<__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP;
     os<<__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate;
     os<<__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle;
+    os<<__Vdly__top__DOT__smc777__DOT__mc6845__DOT__h_counter;
+    os<<__Vdly__top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter;
+    os<<__Vdly__top__DOT__smc777__DOT__mc6845__DOT__sol;
+    os<<__Vdly__top__DOT__smc777__DOT__mc6845__DOT__ma_i;
+    os<<__Vdly__top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync;
     os<<__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
+    os<<__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
+    os<<__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     os<<__Vclklast__TOP__clk_48;
     os<<__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
     os<<__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
@@ -580,7 +667,7 @@ void Vtop::__Vserialize(VerilatedSerialize& os) {
     __VlSymsp->__Vserialize(os);
 }
 void Vtop::__Vdeserialize(VerilatedDeserialize& os) {
-    vluint64_t __Vcheckval = 0x1f3248d99daa3a1bULL;
+    vluint64_t __Vcheckval = 0x93d87e3214fb247cULL;
     os.readAssert(__Vcheckval);
     os >> __VlSymsp->_vm_contextp__;
     os>>clk_48;
@@ -946,6 +1033,86 @@ void Vtop::__Vdeserialize(VerilatedDeserialize& os) {
     os>>top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__L;
     os>>top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IX;
     os>>top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_reg__DOT__IY;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__CLKEN;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__nRESET;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__ENABLE;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__R_nW;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__RS;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__DI;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__DO;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__VSYNC;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__HSYNC;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__DE;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__CURSOR;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__LPSTB;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__VGA;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__MA;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__RA;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__test;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__addr_reg;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r00_h_total;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r01_h_displayed;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r02_h_sync_pos;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r03_v_sync_width;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r03_h_sync_width;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r04_v_total;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r05_v_total_adj;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r06_v_displayed;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r07_v_sync_pos;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r08_interlace;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r09_max_scanline_addr;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_mode;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_start;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r11_cursor_end;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r12_start_addr_h;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r13_start_addr_l;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r14_cursor_h;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r15_cursor_l;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r16_light_pen_h;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r17_light_pen_l;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__h_counter;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__h_sync_counter;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__row_counter;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__row_counter_next;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__line_counter;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__line_counter_next;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__field_counter;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__h_display;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__hs;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__v_display;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__vs;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__vs_hit;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__vs_hit_last;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__vs_even;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__vs_odd;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__odd_field;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__ma_i;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__cursor_i;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__de0;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__de1;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__de2;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__cursor0;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__cursor1;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__cursor2;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__interlaced_video;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__max_scanline;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__adj_scanline;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__ma_row;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__in_adj;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__adj_in_progress;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__sol;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__eom_latched;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__eof_latched;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__first_scanline;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__extra_scanline;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__new_frame;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__max_scanline_hit;
+    os>>top__DOT__smc777__DOT__mc6845__DOT__unnamedblk1__DOT__temp;
     os>>top__DOT__smc777__DOT__dpram__DOT__clock;
     os>>top__DOT__smc777__DOT__dpram__DOT__ram_cs;
     os>>top__DOT__smc777__DOT__dpram__DOT__wren_a;
@@ -1068,7 +1235,14 @@ void Vtop::__Vdeserialize(VerilatedDeserialize& os) {
     os>>__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__SP;
     os>>__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__tstate;
     os>>__Vdly__top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle;
+    os>>__Vdly__top__DOT__smc777__DOT__mc6845__DOT__h_counter;
+    os>>__Vdly__top__DOT__smc777__DOT__mc6845__DOT__v_sync_counter;
+    os>>__Vdly__top__DOT__smc777__DOT__mc6845__DOT__sol;
+    os>>__Vdly__top__DOT__smc777__DOT__mc6845__DOT__ma_i;
+    os>>__Vdly__top__DOT__smc777__DOT__mc6845__DOT__lpstb_sync;
     os>>__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
+    os>>__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
+    os>>__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     os>>__Vclklast__TOP__clk_48;
     os>>__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
     os>>__Vchglast__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
@@ -1139,6 +1313,13 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->top__DOT__smc777__DOT__video = vlTOPp->top__DOT____Vcellout__smc777__video;
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__test 
+        = ((0xcU & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__test)) 
+           | ((((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__ENABLE) 
+                & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__R_nW))) 
+               << 1U) | (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU) 
+                          & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__ENABLE)) 
+                         & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__R_nW)))));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__reset_n 
         = vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;
     vlTOPp->AUDIO_L = (0xffffU & (((IData)(vlTOPp->top__DOT__audio) 
@@ -1170,6 +1351,13 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
             = (0x3fffU & (IData)(vlTOPp->top__DOT__smc777__DOT__ram_a));
         vlTOPp->top__DOT__reset = 0U;
     }
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__HSYNC 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__hs;
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__RA 
+        = ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__interlaced_video)
+            ? ((0x1eU & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter)) 
+               | (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__odd_field))
+            : (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter));
     vlTOPp->top__DOT__smc777__DOT__HBlank = vlTOPp->top__DOT__HBlank;
     vlTOPp->top__DOT__smc777__DOT__HSync = vlTOPp->top__DOT__HSync;
     vlTOPp->top__DOT__smc777__DOT__VBlank = vlTOPp->top__DOT__VBlank;
@@ -1243,6 +1431,34 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
         = (1U & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__BusAck)));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__intcycle_n 
         = (1U & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IntCycle)));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__vs_hit 
+        = ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__row_counter) 
+           == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r07_v_sync_pos));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__adj_scanline 
+        = (0x1fU & (((3U == (3U & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace))) 
+                     & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__VGA))
+                     ? ((IData)(2U) + (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r05_v_total_adj))
+                     : (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r05_v_total_adj)));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__vs 
+        = ((1U & (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                   & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__VGA))) 
+                  & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__odd_field))))
+            ? (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__vs_odd)
+            : (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__vs_even));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__de0 
+        = (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__h_display) 
+            & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__v_display)) 
+           & (3U != (3U & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace) 
+                           >> 4U))));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total_hit 
+        = ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__h_counter) 
+           == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r00_h_total));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__max_scanline 
+        = (0x1fU & ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__VGA)
+                     ? ((IData)(1U) + (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r09_max_scanline_addr))
+                     : ((3U == (3U & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r08_interlace)))
+                         ? (0x1eU & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r09_max_scanline_addr))
+                         : (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r09_max_scanline_addr))));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__IR 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__IR;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__F 
@@ -1809,6 +2025,37 @@ void Vtop::_settle__TOP__2(Vtop__Syms* __restrict vlSymsp) {
             }
         }
     }
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__MA 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__ma_i;
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__test 
+        = ((7U & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__test)) 
+           | ((((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__ENABLE) 
+                & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__R_nW))) 
+               & (0U == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__addr_reg))) 
+              << 3U));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__test 
+        = ((0xbU & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__test)) 
+           | (((((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU) 
+                 & (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__ENABLE)) 
+                & (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__R_nW))) 
+               & (0U == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__addr_reg))) 
+              << 2U));
+    vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__cursor0 
+        = (1U & ((~ (((((~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__h_display)) 
+                        | (~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__v_display))) 
+                       | ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__ma_i) 
+                          != (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r14_cursor_h) 
+                               << 8U) | (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r15_cursor_l)))) 
+                      | ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter) 
+                         < (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_start))) 
+                     | ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__line_counter) 
+                        > (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r11_cursor_end)))) 
+                 & ((3U == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_mode))
+                     ? ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__field_counter) 
+                        >> 4U) : ((2U == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_mode))
+                                   ? ((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__field_counter) 
+                                      >> 3U) : (0U 
+                                                == (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__r10_cursor_mode))))));
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__i_mcode__DOT__MCycle 
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle;
     vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__last_mcycle 

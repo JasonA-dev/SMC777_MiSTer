@@ -1,3 +1,12 @@
-﻿  sim_main.cpp
+﻿  Vtop.cpp
+  Vtop__1.cpp
+  Vtop__1__Slow.cpp
+  Vtop__Slow.cpp
+  Vtop__Syms.cpp
+  Vtop__Trace.cpp
+  Vtop__Trace__Slow.cpp
+  sim_main.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Generating Code...
+     Creating library C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.lib and object C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.exp
   sim.vcxproj -> C:\NoSync\MiSTer\MyRepos\SMC777_MiSTer\verilator\x64\Release\sim.exe

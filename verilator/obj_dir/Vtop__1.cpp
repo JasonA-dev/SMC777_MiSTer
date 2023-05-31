@@ -7,8 +7,8 @@
 
 #include "verilated_dpi.h"
 
-VL_INLINE_OPT void Vtop::_sequent__TOP__11(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_sequent__TOP__11\n"); );
+VL_INLINE_OPT void Vtop::_sequent__TOP__14(Vtop__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_sequent__TOP__14\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     if ((0x20U & (IData)(vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__mcycle))) {
@@ -414,8 +414,8 @@ VL_INLINE_OPT void Vtop::_sequent__TOP__11(Vtop__Syms* __restrict vlSymsp) {
         = vlTOPp->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__RegDIL;
 }
 
-VL_INLINE_OPT void Vtop::_combo__TOP__12(Vtop__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_combo__TOP__12\n"); );
+VL_INLINE_OPT void Vtop::_combo__TOP__15(Vtop__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop::_combo__TOP__15\n"); );
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
@@ -427,29 +427,49 @@ void Vtop::_eval(Vtop__Syms* __restrict vlSymsp) {
     Vtop* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_combo__TOP__4(vlSymsp);
-    if (((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48)))) {
+    if ((((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLOCK) 
+          & (~ (IData)(vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK))) 
+         | ((~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__nRESET)) 
+            & (IData)(vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET)))) {
         vlTOPp->_sequent__TOP__5(vlSymsp);
     }
-    if (((~ (IData)(vlTOPp->clk_48)) & (IData)(vlTOPp->__Vclklast__TOP__clk_48))) {
+    if (((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLOCK) 
+         & (~ (IData)(vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK)))) {
         vlTOPp->_sequent__TOP__6(vlSymsp);
     }
-    if ((((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48))) 
-         | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)) 
-            & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)))) {
+    if (((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48)))) {
         vlTOPp->_sequent__TOP__7(vlSymsp);
     }
-    vlTOPp->_combo__TOP__8(vlSymsp);
-    if (((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48)))) {
-        vlTOPp->_sequent__TOP__9(vlSymsp);
+    if (((~ (IData)(vlTOPp->clk_48)) & (IData)(vlTOPp->__Vclklast__TOP__clk_48))) {
+        vlTOPp->_sequent__TOP__8(vlSymsp);
     }
     if ((((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48))) 
          | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)) 
             & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)))) {
-        vlTOPp->_sequent__TOP__10(vlSymsp);
-        vlTOPp->_sequent__TOP__11(vlSymsp);
+        vlTOPp->_sequent__TOP__9(vlSymsp);
     }
-    vlTOPp->_combo__TOP__12(vlSymsp);
+    if ((((IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLOCK) 
+          & (~ (IData)(vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK))) 
+         | ((~ (IData)(vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__nRESET)) 
+            & (IData)(vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET)))) {
+        vlTOPp->_sequent__TOP__10(vlSymsp);
+    }
+    vlTOPp->_combo__TOP__11(vlSymsp);
+    if (((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48)))) {
+        vlTOPp->_sequent__TOP__12(vlSymsp);
+    }
+    if ((((IData)(vlTOPp->clk_48) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_48))) 
+         | ((~ (IData)(vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)) 
+            & (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n)))) {
+        vlTOPp->_sequent__TOP__13(vlSymsp);
+        vlTOPp->_sequent__TOP__14(vlSymsp);
+    }
+    vlTOPp->_combo__TOP__15(vlSymsp);
     // Final
+    vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__CLOCK 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__CLOCK;
+    vlTOPp->__Vclklast__TOP__top__DOT__smc777__DOT__mc6845__DOT__nRESET 
+        = vlTOPp->top__DOT__smc777__DOT__mc6845__DOT__nRESET;
     vlTOPp->__Vclklast__TOP__clk_48 = vlTOPp->clk_48;
     vlTOPp->__Vclklast__TOP____VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n 
         = vlTOPp->__VinpClk__TOP__top__DOT__smc777__DOT____Vcellinp__tv80n__reset_n;

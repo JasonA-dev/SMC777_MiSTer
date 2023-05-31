@@ -53,13 +53,13 @@ module mc6845
     input R_nW,
     input RS,
     input [7:0] DI,
-    output [7:0] DO,
+    output reg [7:0] DO,
 
     // Display interface
     output VSYNC,
     output HSYNC,
-    output DE,
-    output CURSOR,
+    output reg DE,
+    output reg CURSOR,
     input LPSTB,
 
     input VGA, // Output Mode 7 as 624 line non-interlaced
@@ -96,8 +96,8 @@ reg [5:0] r14_cursor_h;               // Cursor position high
 reg [7:0] r15_cursor_l;               // Cursor position low
 
 // Read-only registers
-wire [5:0] r16_light_pen_h;           // Light pen position high
-wire [7:0] r17_light_pen_l;           // Light pen position low
+reg [5:0] r16_light_pen_h;           // Light pen position high
+reg [7:0] r17_light_pen_l;           // Light pen position low
 
 // Timing generation
 reg [7:0] h_counter;                // Horizontal counter counts position on line
@@ -142,8 +142,8 @@ reg first_scanline;                // First scanline signal
 reg extra_scanline;                // Extra scanline signal
 reg new_frame;                     // New frame signal
 
-wire r00_h_total_hit;              // H total hit signal
-wire max_scanline_hit;             // Max scanline hit signal
+reg r00_h_total_hit;              // H total hit signal
+reg max_scanline_hit;             // Max scanline hit signal
 
     // ===========================================================================
     // Common combinatorial logic
@@ -377,12 +377,15 @@ always @(posedge CLOCK or negedge nRESET) begin
 end
 
 always @* begin
-    if (max_scanline_hit) 
-        line_counter_next = 5'b0;
-    else if (adj_in_progress || !(r08_interlace[1:0] == 2'b11 && VGA == 1'b0)) 
-        line_counter_next = line_counter + 1;
-    else 
-        line_counter_next = {line_counter[4:1] + 1, 1'b0};
+    if (max_scanline_hit)
+        line_counter_next <= '0; // assuming line_counter_next is of appropriate width
+    else if (adj_in_progress || ~((r08_interlace[1:0] == 2'b11) && (VGA == 1'b0)))
+        line_counter_next <= line_counter + 1;
+    else begin
+        reg [3:0] temp;
+        temp <= line_counter[4:1] + 1;
+        line_counter_next <= {temp, 1'b0};
+    end
 end
 
     // Vertical Row Counter
@@ -679,14 +682,14 @@ assign MA = ma_i;
 
 always @(posedge CLOCK or negedge nRESET) begin
     if (nRESET == 1'b0) begin
-        lpstb_sync <= {1'b0, lpstb_sync[lpstb_sync.length - 2:1]};
+        lpstb_sync <= {2'b0, lpstb_sync[1:0]};
         r16_light_pen_h <= 6'b0;
         r17_light_pen_l <= 8'b0;
     end 
     else begin
         if (CLKEN == 1'b1) begin
-            lpstb_sync <= {LPSTB, lpstb_sync[lpstb_sync.length - 2:1]};
-            if ((lpstb_sync[1] == 1'b1) && (lpstb_sync[0] == 1'b0)) begin
+            lpstb_sync <= {LPSTB, lpstb_sync[1:0]};
+            if ((lpstb_sync[2] == 1'b1) && (lpstb_sync[1] == 1'b0)) begin
                 r16_light_pen_h <= ma_i[13:8];
                 r17_light_pen_l <= ma_i[7:0];
             end
