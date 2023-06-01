@@ -316,69 +316,49 @@ int main(int argc, char** argv, char** env) {
 		ImGui::SetWindowPos(windowTitle_DebugLog, ImVec2(0, 160), ImGuiCond_Once);
 
 		// Memory debug
-		//ImGui::Begin("ROM");
-		//mem_edit.DrawContents(&top->top__DOT__rcastudio__DOT__Rom_StudioII__DOT__d, 2048, 0);
-		//ImGui::End();
-
-		ImGui::Begin("BIOS ROM");
+		ImGui::Begin("ROM");
 		mem_edit.DrawContents(&top->top__DOT__smc777__DOT__rom__DOT__mem, 16384, 0);
 		ImGui::End();
-		ImGui::Begin("DPRAM");
-		mem_edit.DrawContents(&top->top__DOT__smc777__DOT__dpram__DOT__mem, 65536, 0);
+		ImGui::Begin("RAM");
+		mem_edit.DrawContents(&top->top__DOT__smc777__DOT__ram__DOT__mem, 65536, 0);
 		ImGui::End();
-
-		// Debug Keypad 1
-//		ImGui::Begin("Keypad 1");
-//		ImGui::Text("btnKP1: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1);	
-		/*ImGui::Text("btnKP1_2: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_2);
-		ImGui::Text("btnKP1_3: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_3);
-		ImGui::Text("btnKP1_4: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_4);
-		ImGui::Text("btnKP1_5: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_5);		
-		ImGui::Text("btnKP1_6: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_6);	
-		ImGui::Text("btnKP1_7: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_7);
-		ImGui::Text("btnKP1_8: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_8);
-		ImGui::Text("btnKP1_9: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_9);
-		ImGui::Text("btnKP1_0: 	0x%02X", top->top__DOT__rcastudio__DOT__btnKP1_0);	*/						
-//		ImGui::Spacing();														
-//		ImGui::End();
-
 
 		// Debug Z80 cpu
 		ImGui::Begin("Z80 CPU");
-		ImGui::Text("reset_n:  0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__reset_n);	
-		ImGui::Text("rd_n:     0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__rd_n);		
-		ImGui::Text("wr_n:     0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__wr_n);
-		ImGui::Text("di:       0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__di);
-		ImGui::Text("A:        0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__A);		
-		ImGui::Text("dout:     0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__dout);											
+		ImGui::Text("reset_n:  0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__reset_n);	
+		ImGui::Text("rd_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__rd_n);		
+		ImGui::Text("wr_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__wr_n);
+		ImGui::Text("di:       0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__di);
+		ImGui::Text("A:        0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__A);		
+		ImGui::Text("dout:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__dout);											
 		ImGui::Spacing();		
-		ImGui::Text("PC:       0x%04X", top->top__DOT__smc777__DOT__tv80n__DOT__i_tv80_core__DOT__PC);		
+		ImGui::Text("PC:       0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__i_tv80_core__DOT__PC);		
 		ImGui::Spacing();		
 		ImGui::End();
 
 		// Debug Z80 cpu
 		ImGui::Begin("MC6845 CRTC");
-		ImGui::Text("CLKEN:  	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__CLKEN);	
-		ImGui::Text("CLKEN_CPU:  0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__CLKEN_CPU);			
-		ImGui::Text("nRESET:     0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__nRESET);		
+		ImGui::Text("CLKEN:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CLKEN);	
+		ImGui::Text("CLKEN_CPU:  0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CLKEN_CPU);			
+		ImGui::Text("nRESET:     0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__nRESET);		
 		ImGui::Spacing();		
-		ImGui::Text("ENABLE:  	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__ENABLE);	
-  		ImGui::Text("R_nW:  	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__R_nW);			
-		ImGui::Text("RS:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__RS);		
-		ImGui::Text("DI:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__DI);		
-		ImGui::Text("DO:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__DO);		
+		ImGui::Text("ENABLE:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__ENABLE);	
+  		ImGui::Text("R_nW:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__R_nW);			
+		ImGui::Text("RS:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__RS);		
+		ImGui::Text("DI:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DI);		
+		ImGui::Text("DO:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DO);		
 		ImGui::Spacing();	
-		ImGui::Text("VSYNC:  	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__VSYNC);	
-  		ImGui::Text("HSYNC:  	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__HSYNC);			
-		ImGui::Text("DE:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__DE);		
-		ImGui::Text("CURSOR:     0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__CURSOR);		
-		ImGui::Text("LPSTB:      0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__LPSTB);	
+		ImGui::Text("VSYNC:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__VSYNC);	
+  		ImGui::Text("HSYNC:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__HSYNC);			
+		ImGui::Text("DE:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DE);		
+		ImGui::Text("CURSOR:     0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CURSOR);		
+		ImGui::Text("LPSTB:      0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__LPSTB);	
 		ImGui::Spacing();	
-		ImGui::Text("VGA:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__VGA);	
+		ImGui::Text("VGA:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__VGA);	
 		ImGui::Spacing();	
-		ImGui::Text("MA:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__MA);	
-		ImGui::Text("RA:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__RA);			
-		ImGui::Text("test:     	 0x%04X", top->top__DOT__smc777__DOT__mc6845__DOT__test);	
+		ImGui::Text("MA:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__MA);	
+		ImGui::Text("RA:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__RA);			
+		ImGui::Text("test:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__test);	
 		ImGui::Spacing();
 		ImGui::End();
 

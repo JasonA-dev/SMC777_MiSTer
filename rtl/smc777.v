@@ -23,86 +23,106 @@ module smc777
 	output  [7:0] video
 );
 
-reg   [9:0] hc;
-reg   [9:0] vc;
-reg   [9:0] vvc;
-reg  [63:0] rnd_reg;
+//******************************************************************************************************************************
+// Address Decoding
+//******************************************************************************************************************************
 
-wire  [5:0] rnd_c = {rnd_reg[0],rnd_reg[1],rnd_reg[2],rnd_reg[2],rnd_reg[2],rnd_reg[2]};
-wire [63:0] rnd;
+// CPU ROM
+wire rom_cs = cpu_addr[15:14] == 2'b0;
+wire rom_read;
+assign rom_read = rom_cs & ~cpu_rd_n;
+// CPU RAM
+wire ram_cs = cpu_addr >= 16'hE000 && ~cpu_mreq_n;
+wire ram_read = ram_cs & ~cpu_rd_n;
+wire ram_write = ram_cs & ~cpu_wr_n;
+// Z80 PIO
+wire pio_cs = ~cpu_addr[7] && ~cpu_iorq_n;
+wire pio_read = pio_cs & ~cpu_rd_n;
+wire pio_write = pio_cs & ~cpu_wr_n;
+// CRTC
+wire crtc_cs = cpu_addr[7] && ~cpu_iorq_n;
+wire crtc_read = crtc_cs & ~cpu_rd_n;
+wire crtc_write = crtc_cs & ~cpu_wr_n;
 
-always @(posedge clk) begin
-	if(scandouble) ce_pix <= 1;
-		else ce_pix <= ~ce_pix;
+//******************************************************************************************************************************
+// CPU
+//******************************************************************************************************************************
 
-	if(reset) begin
-		hc <= 0;
-		vc <= 0;
-	end
-	else if(ce_pix) begin
-		if(hc == 637) begin
-			hc <= 0;
-			if(vc == (pal ? (scandouble ? 623 : 311) : (scandouble ? 523 : 261))) begin 
-				vc <= 0;
-				vvc <= vvc + 9'd6;
-			end else begin
-				vc <= vc + 1'd1;
-			end
-		end else begin
-			hc <= hc + 1'd1;
-		end
-
-		rnd_reg <= rnd;
-	end
-end
-
-always @(posedge clk) begin
-	if (hc == 529) HBlank <= 1;
-		else if (hc == 0) HBlank <= 0;
-
-	if (hc == 544) begin
-		HSync <= 1;
-
-		if(pal) begin
-			if(vc == (scandouble ? 609 : 304)) VSync <= 1;
-				else if (vc == (scandouble ? 617 : 308)) VSync <= 0;
-
-			if(vc == (scandouble ? 601 : 300)) VBlank <= 1;
-				else if (vc == 0) VBlank <= 0;
-		end
-		else begin
-			if(vc == (scandouble ? 490 : 245)) VSync <= 1;
-				else if (vc == (scandouble ? 496 : 248)) VSync <= 0;
-
-			if(vc == (scandouble ? 480 : 240)) VBlank <= 1;
-				else if (vc == 0) VBlank <= 0;
-		end
-	end
-	
-	if (hc == 590) HSync <= 0;
-end
-
-tv80n tv80n(
-  .reset_n(~reset),	// I
-  .clk(clk),		// I
-  .wait_n(1'b1),	// I
-  .int_n(1'b1),		// I
-  .nmi_n(1'b1),		// I
-  .busrq_n(1'b1),	// I
-  .di(ram_q),		// [7:0] I
-  .m1_n(),			// O
-  .mreq_n(),		// O
-  .iorq_n(),		// O
-  .rd_n(),			// O
-  .wr_n(cpu_wr),	// O
-  .rfsh_n(),		// O
-  .halt_n(),		// O
-  .busak_n(),		// O
-  .A(ram_a),		// [15:0] O
-  .dout(ram_d)		// [7:0] O
+wire cpu_mreq_n;
+wire cpu_iorq_n;
+wire cpu_rd_n;
+wire cpu_wr_n;
+wire cpu_m1_n;
+wire [15:0] cpu_addr;
+wire [7:0] cpu_data_in;
+wire [7:0] cpu_data_out;
+tv80e cpu (
+	.clk(clk),
+	.cen(1'b1),
+	.reset_n(~reset),
+	.wait_n(1'b1),
+	.int_n(),
+	.nmi_n(1'b1),
+	.busrq_n(1'b1),
+	.m1_n(cpu_m1_n),
+	.mreq_n(cpu_mreq_n),
+	.iorq_n(cpu_iorq_n),
+	.rd_n(cpu_rd_n),
+	.wr_n(cpu_wr_n),
+	.rfsh_n(),
+	.halt_n(),
+	.busak_n(),
+	.A(cpu_addr),
+	.di(cpu_data_in),
+	.dout(cpu_data_out)
 );
 
-mc6845 mc6845
+wire [7:0] mem_data_out = 	rom_read ? rom_data_out : 
+							ram_read ? ram_data_out :
+							8'h0;
+
+wire [7:0] io_data_out = pio_read ? pio_data_out : 
+						 crtc_read ? crtc_data_out : 
+						 8'h0;
+
+assign cpu_data_in = !cpu_mreq_n ? mem_data_out : io_data_out;
+
+//******************************************************************************************************************************
+// Z80 PIO
+//******************************************************************************************************************************
+
+wire pio_int_n;
+wire [7:0] pio_data_out;
+wire [7:0] pio_port_a;
+reg [7:0] pio_port_b;
+wire pio_basel = cpu_addr[5];
+wire pio_cdsel = cpu_addr[6];
+z8420 pio (
+	.RST_n(~reset_active),
+	.CLK(clk),
+	.ENA(vdp_cpu_clk),
+	.BASEL(pio_basel),
+	.CDSEL(pio_cdsel),
+	.CE(~pio_cs),
+	.RD_n(cpu_rd_n),
+	.WR_n(cpu_wr_n),
+	.IORQ_n(cpu_iorq_n),
+	.M1_n(cpu_m1_n),
+	.DI(cpu_data_out),
+	.DO(pio_data_out),
+	.IEI(1'b1),
+	.IEO(),
+	.INT_n(),
+	.A(pio_port_a),
+	.B(pio_port_b)
+);
+
+//******************************************************************************************************************************
+// CRTC
+//******************************************************************************************************************************
+
+wire [7:0] crtc_data_out;
+mc6845 crtc
 (
     .CLOCK(clk),
     .CLKEN(1'b1),
@@ -113,17 +133,17 @@ mc6845 mc6845
     .ENABLE(1'b1),
     .R_nW(),
     .RS(),
-    .DI(), // [7:0]
-    .DO(), // [7.0]
+    .DI(cpu_data_out), // [7:0]
+    .DO(crtc_data_out), // [7.0]
 
     // Display interface
-    .VSYNC(),
-    .HSYNC(),
+    .VSYNC(VSync),
+    .HSYNC(HSync),
     .DE(),
     .CURSOR(),
     .LPSTB(),
 
-    .VGA(), // Output Mode 7 as 624 line non-interlaced
+    .VGA(video), // Output Mode 7 as 624 line non-interlaced
 
     // Memory interface
     .MA(), // [13:0]
@@ -131,39 +151,37 @@ mc6845 mc6845
     .test() // [3:0]
 );
 
+//******************************************************************************************************************************
+// ROM
+//******************************************************************************************************************************
 
-reg          ram_cs;
-reg          ram_rd; // RAM read enable
-reg          ram_wr; // RAM write enable
-reg   [7:0]  ram_d;  // RAM write data
-reg  [15:0]  ram_a;  // RAM address
-reg   [7:0]  ram_q;  // RAM read data
+wire [7:0] rom_data_out;
 dpram #(8, 14) rom
 (
 	.clock(clk),
-	.address_a(ioctl_addr[13:0]),
-	.wren_a(ioctl_wr),
-	.data_a(ioctl_dout),
-	.q_a(ram_q),
+	.address_a(cpu_addr[13:0]),
+	.wren_a(1'b0),
+	.data_a(),
+	.q_a(rom_data_out),
 
-	.wren_b(1'b0),
-	.address_b(),
-	.data_b(),
+	.wren_b(ioctl_wr),
+	.address_b(ioctl_addr[13:0]),
+	.data_b(ioctl_dout),
 	.q_b()
 );
 
-dpram #(8, 16) dpram
+//******************************************************************************************************************************
+// RAM
+//******************************************************************************************************************************
+
+wire [7:0] ram_data_out;
+spram #(16,8) ram 
 (
 	.clock(clk),
-	.address_a(ram_a),
-	.wren_a(cpu_wr),
-	.data_a(ram_d),
-	.q_a(),
-
-	.wren_b(1'b0),
-	.address_b(),
-	.data_b(),
-	.q_b()
+	.address(cpu_addr[15:0]),
+	.wren(ram_write),
+	.data(cpu_data_out),
+	.q(ram_data_out)
 );
 
 endmodule

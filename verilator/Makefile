@@ -55,12 +55,15 @@ CC_OPT = -O
 V_SRC = \
 	sim.v \
 	$(RTL)/smc777.v \
-	$(RTL)/tv80/tv80n.v \
+	$(RTL)/tv80/tv80e.v \
 	$(RTL)/tv80/tv80_core.v \
 	$(RTL)/tv80/tv80_mcode.v \
 	$(RTL)/tv80/tv80_alu.v \
 	$(RTL)/tv80/tv80_reg.v \
+	$(RTL)/z8420/z8420.v \
+	$(RTL)/z8420/interrupt.v \		
 	$(RTL)/dpram.sv \
+	$(RTL)/spram.v \	
 	$(RTL)/mc6845v/mc6845.v
 
 C_SRC = \
