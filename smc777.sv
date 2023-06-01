@@ -253,6 +253,8 @@ hps_io #(.CONF_STR(CONF_STR)) hps_io
 
 ///////////////////////   CLOCKS   ///////////////////////////////
 
+// 4.028_MHz_XTAL
+
 wire clk_sys;
 pll pll
 (

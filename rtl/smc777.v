@@ -1,26 +1,26 @@
 
 module smc777
 (
-	input         clk,
-	input         reset,
+	input         		clk,
+	input         		reset,
 	
-	input         pal,
-	input         scandouble,
+	input         		pal,
+	input         		scandouble,
 
-	input wire         ioctl_download,
-	input wire   [7:0] ioctl_index,
-	input wire         ioctl_wr,
-	input       [24:0] ioctl_addr,
-	input        [7:0] ioctl_dout,
+	input wire         	ioctl_download,
+	input wire    [7:0] ioctl_index,
+	input wire         	ioctl_wr,
+	input        [24:0] ioctl_addr,
+	input         [7:0] ioctl_dout,
 
-	output reg    ce_pix,
+	output reg    		ce_pix,
 
-	output reg    HBlank,
-	output reg    HSync,
-	output reg    VBlank,
-	output reg    VSync,
+	output reg    		HBlank,
+	output reg    		HSync,
+	output reg    		VBlank,
+	output reg    		VSync,
 
-	output  [7:0] video
+	output  	  [7:0] video
 );
 
 //******************************************************************************************************************************
@@ -77,9 +77,9 @@ tv80e cpu (
 	.dout(cpu_data_out)
 );
 
-wire [7:0] mem_data_out = 	rom_read ? rom_data_out : 
-							ram_read ? ram_data_out :
-							8'h0;
+wire [7:0] mem_data_out = rom_read ? rom_data_out : 
+						  ram_read ? ram_data_out :
+						  8'h0;
 
 wire [7:0] io_data_out = pio_read ? pio_data_out : 
 						 crtc_read ? crtc_data_out : 
@@ -133,7 +133,7 @@ mc6845 crtc
     .ENABLE(1'b1),
     .R_nW(),
     .RS(),
-    .DI(cpu_data_out), // [7:0]
+    .DI(cpu_data_out),  // [7:0]
     .DO(crtc_data_out), // [7.0]
 
     // Display interface
@@ -146,9 +146,27 @@ mc6845 crtc
     .VGA(video), // Output Mode 7 as 624 line non-interlaced
 
     // Memory interface
-    .MA(), // [13:0]
-    .RA(), // [4:0]
-    .test() // [3:0]
+    .MA(),  // [13:0]
+    .RA(),  //  [4:0]
+    .test() //  [3:0]
+);
+
+//******************************************************************************************************************************
+// SN76496 PSG AUDIO
+//******************************************************************************************************************************
+
+SN76496 psg
+(
+	.clk(clk),  	// I
+	.cpuclk(clk), 	// I
+	.reset(reset), 	// I
+	.ce(), 			// I
+	.we(), 			// I
+	.data(), 		// [7:0] I
+	.chmsk(), 		// [3:0] I
+	.sndout(), 		// [7:0] O
+	.chactv(), 		// [3:0] O
+	.lreg()  		// [2:0] O
 );
 
 //******************************************************************************************************************************

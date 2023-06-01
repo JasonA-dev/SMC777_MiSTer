@@ -61,7 +61,8 @@ V_SRC = \
 	$(RTL)/tv80/tv80_alu.v \
 	$(RTL)/tv80/tv80_reg.v \
 	$(RTL)/z8420/z8420.v \
-	$(RTL)/z8420/interrupt.v \		
+	$(RTL)/z8420/interrupt.v \	
+	$(RTL)/sn76496/sn76496.v \		
 	$(RTL)/dpram.sv \
 	$(RTL)/spram.v \	
 	$(RTL)/mc6845v/mc6845.v

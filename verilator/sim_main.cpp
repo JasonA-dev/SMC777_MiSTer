@@ -362,6 +362,25 @@ int main(int argc, char** argv, char** env) {
 		ImGui::Spacing();
 		ImGui::End();
 
+		// Address Decoder
+		ImGui::Begin("ADDRESS DECODER");
+		ImGui::Text("rom_cs:  	 0x%04X", top->top__DOT__smc777__DOT__rom_cs);	
+		ImGui::Text("rom_read:  0x%04X", top->top__DOT__smc777__DOT__rom_read);			
+		ImGui::Spacing();		
+		ImGui::Text("ram_cs:  	 0x%04X", top->top__DOT__smc777__DOT__ram_cs);	
+  		ImGui::Text("ram_read:  	 0x%04X", top->top__DOT__smc777__DOT__ram_read);			
+		ImGui::Text("ram_write:     	 0x%04X", top->top__DOT__smc777__DOT__ram_write);		
+		ImGui::Spacing();	
+		ImGui::Text("pio_cs:  	 0x%04X", top->top__DOT__smc777__DOT__pio_cs);	
+  		ImGui::Text("pio_read:  	 0x%04X", top->top__DOT__smc777__DOT__pio_read);			
+		ImGui::Text("pio_write:     	 0x%04X", top->top__DOT__smc777__DOT__pio_write);		
+		ImGui::Spacing();	
+		ImGui::Text("crtc_cs:     	 0x%04X", top->top__DOT__smc777__DOT__crtc_cs);	
+		ImGui::Text("crtc_read:     	 0x%04X", top->top__DOT__smc777__DOT__crtc_read);	
+		ImGui::Text("crtc_write:     	 0x%04X", top->top__DOT__smc777__DOT__crtc_write);			
+		ImGui::Spacing();
+		ImGui::End();
+
 		// Trace/VCD window
 		ImGui::Begin(windowTitle_Trace);
 		ImGui::SetWindowPos(windowTitle_Trace, ImVec2(0, 870), ImGuiCond_Once);
