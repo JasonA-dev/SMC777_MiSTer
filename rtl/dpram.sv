@@ -1,62 +1,71 @@
-//
-// dpram.sv
-//
-// sdram controller implementation for the MiSTer board by
-//
-// Copyright (c) 2020 Frank Bruno
-//
-// This source file is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published
-// by the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This source file is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
+/*============================================================================
+	Generic dual-port RAM module
+
+	Copyright (C) 2022 - Jim Gregory - https://github.com/JimmyStones/
+
+	This program is free software; you can redistribute it and/or modify it
+	under the terms of the GNU General Public License as published by the Free
+	Software Foundation; either version 3 of the License, or (at your option)
+	any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License along
+	with this program. If not, see <http://www.gnu.org/licenses/>.
+===========================================================================*/
+
+`timescale 1ns / 1ns
 
 module dpram #(
-    parameter data_width_g = 8,
-    parameter addr_width_g = 14
+	parameter address_width = 10,
+	parameter data_width = 8,
+	parameter init_file= ""
 ) (
-    input   wire                        clock,
+	input	wire						clock_a,
+	input	wire						enable_a,
+	input	wire						wren_a,
+	input	wire	[address_width-1:0]	address_a,
+	input	wire	[data_width-1:0]	data_a,
+	output	reg		[data_width-1:0]	q_a,
 
-    // Port A
-    input   wire                        ram_cs,    
-    input   wire                        wren_a,
-    input   wire    [addr_width_g-1:0]  address_a,
-    input   wire    [data_width_g-1:0]  data_a,
-    output  logic   [data_width_g-1:0]  q_a,
-
-    // Port B
-    input   wire                        ram_cs_b,    
-    input   wire                        wren_b,
-    input   wire    [addr_width_g-1:0]  address_b,
-    input   wire    [data_width_g-1:0]  data_b,
-    output  logic   [data_width_g-1:0]  q_b
+	input	wire						clock_b,
+	input	wire						enable_b,
+	input	wire						wren_b,
+	input	wire	[address_width-1:0]	address_b,
+	input	wire	[data_width-1:0]	data_b,
+	output	reg		[data_width-1:0]	q_b
 );
 
-// Shared memory
-logic [data_width_g-1:0] mem [(2**addr_width_g)-1:0];
+	localparam ramLength = (2**address_width);
+	reg [data_width-1:0] mem [ramLength-1:0];
 
-// Port A
-always @(posedge clock) begin
-	q_a <= mem[address_a];
-    if(wren_a) begin
-        mem[address_a] <= data_a;
-    end
-end
+	initial begin
+		if (init_file>0) $readmemh(init_file, mem);
+	end
 
-// Port B
-always @(posedge clock) begin
-	q_b <= mem[address_b];         
-    if(wren_b) begin
-        mem[address_b] <= data_b;
-    end
-end
+	always @(posedge clock_a) begin
+		if(enable_a)
+		begin
+			q_a <= mem[address_a];
+			if(wren_a) begin
+				q_a <= data_a;
+				mem[address_a] <= data_a;
+			end
+		end
+	end
+
+	always @(posedge clock_b) begin
+		if(enable_b)
+		begin
+			q_b <= mem[address_b];
+			if(wren_b) begin
+				q_b <= data_b;
+				mem[address_b] <= data_b;
+			end
+		end
+	end
 
 endmodule

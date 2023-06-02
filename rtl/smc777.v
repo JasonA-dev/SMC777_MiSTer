@@ -27,12 +27,15 @@ module smc777
 // Address Decoding
 //******************************************************************************************************************************
 
+//2**14 = 16384
+//2**16 = 65536
+
 // CPU ROM
 wire rom_cs = cpu_addr[15:14] == 2'b0;
 wire rom_read;
 assign rom_read = rom_cs & ~cpu_rd_n;
 // CPU RAM
-wire ram_cs = cpu_addr >= 16'hE000 && ~cpu_mreq_n;
+wire ram_cs = cpu_addr >= 16'h4000 && ~cpu_mreq_n;
 wire ram_read = ram_cs & ~cpu_rd_n;
 wire ram_write = ram_cs & ~cpu_wr_n;
 // Z80 PIO
@@ -98,9 +101,9 @@ reg [7:0] pio_port_b;
 wire pio_basel = cpu_addr[5];
 wire pio_cdsel = cpu_addr[6];
 z8420 pio (
-	.RST_n(~reset_active),
+	.RST_n(~reset),
 	.CLK(clk),
-	.ENA(vdp_cpu_clk),
+	.ENA(1'b1),
 	.BASEL(pio_basel),
 	.CDSEL(pio_cdsel),
 	.CE(~pio_cs),
@@ -122,6 +125,7 @@ z8420 pio (
 //******************************************************************************************************************************
 
 wire [7:0] crtc_data_out;
+wire crtc_cpu_clk;
 mc6845 crtc
 (
     .CLOCK(clk),
@@ -174,16 +178,19 @@ SN76496 psg
 //******************************************************************************************************************************
 
 wire [7:0] rom_data_out;
-dpram #(8, 14) rom
+dpram #(14, 8,"bios/smcrom.hex") rom
 (
-	.clock(clk),
+	.clock_a(clk),
 	.address_a(cpu_addr[13:0]),
+	.enable_a(1'b1),
 	.wren_a(1'b0),
 	.data_a(),
 	.q_a(rom_data_out),
 
-	.wren_b(ioctl_wr),
+	.clock_b(clk),
 	.address_b(ioctl_addr[13:0]),
+	.enable_b(ioctl_wr),
+	.wren_b(ioctl_wr),
 	.data_b(ioctl_dout),
 	.q_b()
 );
