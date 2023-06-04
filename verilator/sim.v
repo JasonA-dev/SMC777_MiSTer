@@ -5,6 +5,7 @@ module top(
 
    input clk_48 /*verilator public_flat*/,
    input clk_24,
+	input RESET/*verilator public_flat*/,   
    input [11:0]  inputs/*verilator public_flat*/,
 
    output [7:0] VGA_R/*verilator public_flat*/,
@@ -54,7 +55,8 @@ module top(
    assign AUDIO_R = AUDIO_L;
 
 wire ce_pix = 1'b1;
-wire reset = ioctl_download;
+wire reset;
+assign reset = (RESET | ioctl_download); 
 
 reg key_strobe;
 wire key_strobe = old_keystb ^ ps2_key[10];

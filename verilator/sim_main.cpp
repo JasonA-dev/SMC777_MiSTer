@@ -135,9 +135,9 @@ int verilate() {
 	if (!Verilated::gotFinish()) {
 
 		// Assert reset during startup
-		//if (main_time < initialReset) { top->reset = 1; }
+		if (main_time < initialReset) { top->RESET = 1; }
 		// Deassert reset after startup
-		//if (main_time == initialReset) { top->reset = 0; }
+		if (main_time == initialReset) { top->RESET = 0; }
 
 		// Clock dividers
 		clk_48.Tick();

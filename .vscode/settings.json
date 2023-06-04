@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "atomic": "cpp"
+        "atomic": "cpp",
+        "memory": "cpp",
+        "optional": "cpp"
     }
 }
