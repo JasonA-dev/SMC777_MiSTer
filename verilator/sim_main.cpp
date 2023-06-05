@@ -316,68 +316,108 @@ int main(int argc, char** argv, char** env) {
 		ImGui::SetWindowPos(windowTitle_DebugLog, ImVec2(0, 160), ImGuiCond_Once);
 
 		// Memory debug
-		ImGui::Begin("ROM");
+		ImGui::Begin("ROM 16K");
 		mem_edit.DrawContents(&top->top__DOT__smc777__DOT__rom__DOT__mem, 16384, 0);
 		ImGui::End();
-		ImGui::Begin("RAM");
+		ImGui::Begin("RAM 64K");
 		mem_edit.DrawContents(&top->top__DOT__smc777__DOT__ram__DOT__mem, 65536, 0);
 		ImGui::End();
 
-		// Debug Z80 cpu
+		// Debug Z80 CPU
 		ImGui::Begin("Z80 CPU");
 		ImGui::Text("reset_n:  0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__reset_n);	
-		ImGui::Text("rd_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__rd_n);		
-		ImGui::Text("wr_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__wr_n);
-		ImGui::Text("di:       0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__di);
-		ImGui::Text("A:        0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__A);		
+		ImGui::Spacing();
+		ImGui::Text("int_n:    0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__int_n);	
+		ImGui::Text("m1_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__m1_n);	
+		ImGui::Text("mreq_n:   0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__mreq_n);	
+		ImGui::Text("iorq_n:   0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__iorq_n);	
+		ImGui::Text("rd_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__rd_n);	
+		ImGui::Text("wr_n:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__wr_n);	
+		ImGui::Spacing();	
+		ImGui::Text("A:        0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__A);	
+		ImGui::Text("di:       0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__di);			
 		ImGui::Text("dout:     0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__dout);											
-		ImGui::Spacing();		
+		ImGui::Spacing();	
+		ImGui::Text("SP:       0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__i_tv80_core__DOT__SP);				
 		ImGui::Text("PC:       0x%04X", top->top__DOT__smc777__DOT__cpu__DOT__i_tv80_core__DOT__PC);		
 		ImGui::Spacing();		
 		ImGui::End();
 
-		// Debug Z80 cpu
+		// Debug Z80 PIO
+		ImGui::Begin("Z80 PIO");
+		ImGui::Text("ENA:     0x%04X", top->top__DOT__smc777__DOT__pio__DOT__ENA);	
+		ImGui::Text("BASEL:   0x%04X", top->top__DOT__smc777__DOT__pio__DOT__BASEL);		
+		ImGui::Text("CDSEL:   0x%04X", top->top__DOT__smc777__DOT__pio__DOT__CDSEL);
+		ImGui::Text("CE:      0x%04X", top->top__DOT__smc777__DOT__pio__DOT__CE);	
+		ImGui::Text("RD_n:    0x%04X", top->top__DOT__smc777__DOT__pio__DOT__RD_n);			
+		ImGui::Text("WR_n:    0x%04X", top->top__DOT__smc777__DOT__pio__DOT__WR_n);											
+		ImGui::Spacing();	
+		ImGui::Text("IORQ_n:  0x%04X", top->top__DOT__smc777__DOT__pio__DOT__IORQ_n);				
+		ImGui::Text("M1_n:    0x%04X", top->top__DOT__smc777__DOT__pio__DOT__M1_n);		
+		ImGui::Spacing();		
+		ImGui::Text("IORQ_n:  0x%04X", top->top__DOT__smc777__DOT__pio__DOT__IORQ_n);				
+		ImGui::Text("M1_n:    0x%04X", top->top__DOT__smc777__DOT__pio__DOT__M1_n);		
+		ImGui::Spacing();
+		ImGui::Text("DI:      0x%04X", top->top__DOT__smc777__DOT__pio__DOT__DI);				
+		ImGui::Text("DO:      0x%04X", top->top__DOT__smc777__DOT__pio__DOT__DO);		
+		ImGui::Spacing();
+		ImGui::Text("IEI:     0x%04X", top->top__DOT__smc777__DOT__pio__DOT__IEI);				
+		ImGui::Text("IEO:     0x%04X", top->top__DOT__smc777__DOT__pio__DOT__IEO);		
+		ImGui::Spacing();
+		ImGui::Text("INT_n:   0x%04X", top->top__DOT__smc777__DOT__pio__DOT__INT_n);				
+		ImGui::Text("A:       0x%04X", top->top__DOT__smc777__DOT__pio__DOT__A);	
+		ImGui::Text("B:       0x%04X", top->top__DOT__smc777__DOT__pio__DOT__B);			
+		ImGui::Spacing();								
+		ImGui::End();
+
+		// Debug MC6845 CRTC
 		ImGui::Begin("MC6845 CRTC");
-		ImGui::Text("CLKEN:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CLKEN);	
+		ImGui::Text("CLKEN:      0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CLKEN);	
 		ImGui::Text("CLKEN_CPU:  0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CLKEN_CPU);			
 		ImGui::Text("nRESET:     0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__nRESET);		
 		ImGui::Spacing();		
-		ImGui::Text("ENABLE:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__ENABLE);	
-  		ImGui::Text("R_nW:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__R_nW);			
-		ImGui::Text("RS:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__RS);		
-		ImGui::Text("DI:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DI);		
-		ImGui::Text("DO:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DO);		
+		ImGui::Text("ENABLE:     0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__ENABLE);	
+  		ImGui::Text("R_nW:       0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__R_nW);			
+		ImGui::Text("RS:         0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__RS);		
+		ImGui::Text("DI:         0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DI);		
+		ImGui::Text("DO:         0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DO);		
 		ImGui::Spacing();	
-		ImGui::Text("VSYNC:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__VSYNC);	
-  		ImGui::Text("HSYNC:  	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__HSYNC);			
-		ImGui::Text("DE:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DE);		
+		ImGui::Text("VSYNC:      0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__VSYNC);	
+  		ImGui::Text("HSYNC:      0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__HSYNC);			
+		ImGui::Text("DE:         0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__DE);		
 		ImGui::Text("CURSOR:     0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__CURSOR);		
 		ImGui::Text("LPSTB:      0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__LPSTB);	
 		ImGui::Spacing();	
-		ImGui::Text("VGA:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__VGA);	
+		ImGui::Text("VGA:        0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__VGA);	
 		ImGui::Spacing();	
-		ImGui::Text("MA:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__MA);	
-		ImGui::Text("RA:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__RA);			
-		ImGui::Text("test:     	 0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__test);	
+		ImGui::Text("MA:         0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__MA);	
+		ImGui::Text("RA:         0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__RA);			
+		ImGui::Text("test:       0x%04X", top->top__DOT__smc777__DOT__crtc__DOT__test);	
 		ImGui::Spacing();
 		ImGui::End();
 
 		// Address Decoder
 		ImGui::Begin("ADDRESS DECODER");
-		ImGui::Text("rom_cs:  	 0x%04X", top->top__DOT__smc777__DOT__rom_cs);	
-		ImGui::Text("rom_read:  0x%04X", top->top__DOT__smc777__DOT__rom_read);			
+		ImGui::Text("rom_cs:     0x%04X", top->top__DOT__smc777__DOT__rom_cs);	
+		ImGui::Text("rom_read:   0x%04X", top->top__DOT__smc777__DOT__rom_read);			
 		ImGui::Spacing();		
-		ImGui::Text("ram_cs:  	 0x%04X", top->top__DOT__smc777__DOT__ram_cs);	
-  		ImGui::Text("ram_read:  	 0x%04X", top->top__DOT__smc777__DOT__ram_read);			
-		ImGui::Text("ram_write:     	 0x%04X", top->top__DOT__smc777__DOT__ram_write);		
+		ImGui::Text("ram_cs:     0x%04X", top->top__DOT__smc777__DOT__ram_cs);	
+  		ImGui::Text("ram_read:   0x%04X", top->top__DOT__smc777__DOT__ram_read);			
+		ImGui::Text("ram_write:  0x%04X", top->top__DOT__smc777__DOT__ram_write);		
 		ImGui::Spacing();	
-		ImGui::Text("pio_cs:  	 0x%04X", top->top__DOT__smc777__DOT__pio_cs);	
-  		ImGui::Text("pio_read:  	 0x%04X", top->top__DOT__smc777__DOT__pio_read);			
-		ImGui::Text("pio_write:     	 0x%04X", top->top__DOT__smc777__DOT__pio_write);		
+		ImGui::Text("pio_cs:     0x%04X", top->top__DOT__smc777__DOT__pio_cs);	
+  		ImGui::Text("pio_read:   0x%04X", top->top__DOT__smc777__DOT__pio_read);			
+		ImGui::Text("pio_write:  0x%04X", top->top__DOT__smc777__DOT__pio_write);		
 		ImGui::Spacing();	
-		ImGui::Text("crtc_cs:     	 0x%04X", top->top__DOT__smc777__DOT__crtc_cs);	
-		ImGui::Text("crtc_read:     	 0x%04X", top->top__DOT__smc777__DOT__crtc_read);	
-		ImGui::Text("crtc_write:     	 0x%04X", top->top__DOT__smc777__DOT__crtc_write);			
+		ImGui::Text("crtc_cs:    0x%04X", top->top__DOT__smc777__DOT__crtc_cs);	
+		ImGui::Text("crtc_read:  0x%04X", top->top__DOT__smc777__DOT__crtc_read);	
+		ImGui::Text("crtc_write: 0x%04X", top->top__DOT__smc777__DOT__crtc_write);			
+		ImGui::Spacing();
+		ImGui::End();
+
+		// Address Decoder
+		ImGui::Begin("IO & INT");
+		ImGui::Text("pio_int_n:  	 0x%04X", top->top__DOT__smc777__DOT__pio_int_n);	
 		ImGui::Spacing();
 		ImGui::End();
 

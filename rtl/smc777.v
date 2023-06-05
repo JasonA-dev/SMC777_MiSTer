@@ -59,12 +59,13 @@ wire cpu_m1_n;
 wire [15:0] cpu_addr;
 wire [7:0] cpu_data_in;
 wire [7:0] cpu_data_out;
+
 tv80e cpu (
 	.clk(clk),
 	.cen(1'b1),
 	.reset_n(~reset),
 	.wait_n(1'b1),
-	.int_n(),
+	.int_n(pio_int_n),
 	.nmi_n(1'b1),
 	.busrq_n(1'b1),
 	.m1_n(cpu_m1_n),
@@ -87,6 +88,67 @@ wire [7:0] mem_data_out = rom_read ? rom_data_out :
 wire [7:0] io_data_out = pio_read ? pio_data_out : 
 						 crtc_read ? crtc_data_out : 
 						 8'h0;
+
+//******************************************************************************************************************************
+// IO MAP
+//******************************************************************************************************************************
+reg [7:0] low_offset;
+reg [7:0] io_test_data_out;
+
+reg [7:0] vram;
+reg [7:0] attr;
+reg [7:0] pcg;
+reg [7:0] mc6845;
+reg [7:0] key;
+reg [7:0] io_status_lc;
+reg [7:0] io_status_ld;
+reg [7:0] irq_control;
+reg [7:0] gcw;
+
+always @(posedge clk) begin
+
+	low_offset <= cpu_addr & 8'hff;
+
+	if(low_offset <= 8'h07) io_test_data_out <= vram; // vram
+	else if (low_offset >= 8'h08 && low_offset <= 8'h0f) io_test_data_out <= attr; // attr
+	else if (low_offset >= 8'h10 && low_offset <= 8'h17) io_test_data_out <= pcg; // pcg
+	else if (low_offset >= 8'h18 && low_offset <= 8'h19) io_test_data_out <= mc6845; // mc6845
+	else if (low_offset >= 8'h1a && low_offset <= 8'h1b) io_test_data_out <= key; // key
+	else if (low_offset == 8'h1c) io_test_data_out <= io_status_lc; // io_status_lc
+	else if (low_offset == 8'h1d) io_test_data_out <= io_status_ld; // io_status_ld
+	// else if (low_offset >= 8'h1e && low_offset <= 8'h1f) io_test_data_out <= irq_control; // irq control
+	else if (low_offset == 8'h20) io_test_data_out <= gcw; // gcw
+	else if (low_offset == 8'h21) io_test_data_out <= 00; // gcw  vsync_irq_status_r   vsync_irq_enable_w
+	// else if (low_offset == 8'h22) io_test_data_out <= 00; // printer output data
+	else if (low_offset == 8'h23) io_test_data_out <= 00; // border_col_w
+	// else if (low_offset == 8'h24) io_test_data_out <= 00; rtc write address (M5M58321RS)
+	// else if (low_offset == 8'h25) io_test_data_out <= 00; rtc read
+	// else if (low_offset == 8'h26) io_test_data_out <= 00; rs232 #1
+	// else if (low_offset >= 8'h28 && low_offset <= 8'h2c) io_test_data_out <= 00; // fdc #2 (8")
+	// else if (low_offset >= 8'h2d && low_offset <= 8'h2f) io_test_data_out <= 00; // rs232 #2
+	else if (low_offset >= 8'h30 && low_offset <= 8'h33) io_test_data_out <= 00; // fdc_r
+	else if (low_offset == 8'h34) io_test_data_out <= 00; // fdc1_fast_status_r  
+	// else if (low_offset >= 8'h35 && low_offset <= 8'h37) io_test_data_out <= 00; // rs232 #3
+	// else if (low_offset >= 8'h38 && low_offset <= 8'h3b) io_test_data_out <= 00; // cache disk unit
+	// else if (low_offset == 8'h38) io_test_data_out <= 00; / R CDSTS status port (W) CDCMD command port
+	// else if (low_offset == 8'h39) io_test_data_out <= 00; // W track register
+	// else if (low_offset == 8'h3a) io_test_data_out <= 00; // W sector register
+	// else if (low_offset == 8'h3b) io_test_data_out <= 00; // RW data port
+	// else if (low_offset >= 8'h3c && low_offset <= 8'h3d) io_test_data_out <= 00; // rgb superimposer / genlock control
+	// else if (low_offset >= 8'h40 && low_offset <= 8'h47) io_test_data_out <= 00; // ieee-488 / TMS9914A I/F
+	else if (low_offset == 8'h44) io_test_data_out <= 00; // normally unmapped in GPIB interface
+	// else if (low_offset >= 8'h48 && low_offset <= 8'h49) io_test_data_out <= 00; // hdd (winchester)
+	else if (low_offset == 8'h51) io_test_data_out <= 00; // color_mode_w  
+	else if (low_offset == 8'h52) io_test_data_out <= 00; // ramdac_w  
+	else if (low_offset == 8'h53) io_test_data_out <= 00; // sn76489a_device 
+	// else if (low_offset >= 8'h54 && low_offset <= 8'h59) io_test_data_out <= 00; // vrt controller
+	// else if (low_offset >= 8'h5a && low_offset <= 8'h5b) io_test_data_out <= 00; // ram banking
+	// else if (low_offset == 8'h70) io_test_data_out <= 00; // auto-start ROM (ext-ROM)
+	// else if (low_offset == 8'h74) io_test_data_out <= 00; // ieee-488 GPIB ROM port
+	// else if (low_offset == 8'h75) io_test_data_out <= 00; // vrt controller ROM
+	// else if (low_offset >= 8'h7e && low_offset <= 8'h7f) io_test_data_out <= 00; // kanji ROM
+	else if (low_offset >= 8'h80 && low_offset <= 8'hff) io_test_data_out <= 00; // fbuf
+end
 
 assign cpu_data_in = !cpu_mreq_n ? mem_data_out : io_data_out;
 
@@ -115,7 +177,7 @@ z8420 pio (
 	.DO(pio_data_out),
 	.IEI(1'b1),
 	.IEO(),
-	.INT_n(),
+	.INT_n(pio_int_n),
 	.A(pio_port_a),
 	.B(pio_port_b)
 );
@@ -168,6 +230,7 @@ SN76496 psg
 	.we(), 			// I
 	.data(), 		// [7:0] I
 	.chmsk(), 		// [3:0] I
+
 	.sndout(), 		// [7:0] O
 	.chactv(), 		// [3:0] O
 	.lreg()  		// [2:0] O
